@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#141C2E">
   <title>Admin · Sushanta Digital</title>
+  <link rel="icon" href="/assets/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
@@ -14,30 +16,45 @@
 <body>
   <!-- Boot / loading state -->
   <div id="boot" class="boot" aria-live="polite">
+    <span class="logo-mark logo-mark--lg" aria-hidden="true">S</span>
     <div class="spinner" aria-hidden="true"></div>
     <span>Loading admin…</span>
   </div>
 
   <!-- Login -->
   <main id="login" class="login" hidden>
-    <form id="login-form" class="login-card" novalidate>
-      <div class="login-brand">
-        <span class="logo-mark" aria-hidden="true">S</span>
-        <div>
-          <strong>Sushanta Digital</strong>
-          <span>Admin panel</span>
+    <section class="login-aside" aria-hidden="true">
+      <div class="login-brand login-brand--light">
+        <span class="logo-mark">S</span>
+        <div><strong>Sushanta Digital</strong><span>Admin panel</span></div>
+      </div>
+      <div class="login-aside__copy">
+        <h2>Run your website<br>from <em>one place.</em></h2>
+        <ul>
+          <li>See every new lead the moment it arrives</li>
+          <li>Edit projects, plans, FAQs and reviews</li>
+          <li>Write blog posts and upload images</li>
+        </ul>
+      </div>
+      <p class="login-aside__foot">susanta.me</p>
+    </section>
+    <section class="login-main">
+      <form id="login-form" class="login-card" novalidate>
+        <div class="login-brand login-brand--mobile">
+          <span class="logo-mark" aria-hidden="true">S</span>
+          <div><strong>Sushanta Digital</strong><span>Admin panel</span></div>
         </div>
-      </div>
-      <h1>Welcome back</h1>
-      <p class="muted">Enter your admin password to manage the website.</p>
-      <div class="field">
-        <label for="login-password">Password</label>
-        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
-      </div>
-      <p id="login-error" class="form-error" role="alert" hidden></p>
-      <button type="submit" class="btn btn-primary btn-block" id="login-submit">Log in</button>
-      <a class="login-back" href="/">← Back to website</a>
-    </form>
+        <h1>Welcome back 👋</h1>
+        <p class="muted">Enter your admin password to manage the website.</p>
+        <div class="field">
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="••••••••••" required>
+        </div>
+        <p id="login-error" class="form-error" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="login-submit">Log in</button>
+        <a class="login-back" href="/">← Back to website</a>
+      </form>
+    </section>
   </main>
 
   <!-- App shell -->
@@ -46,7 +63,8 @@
       <button type="button" class="icon-btn" id="menu-toggle" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
       </button>
-      <span class="topbar-title">Sushanta Digital <em>Admin</em></span>
+      <span class="topbar-title"><span class="logo-mark logo-mark--sm" aria-hidden="true">S</span>Sushanta <em>Admin</em></span>
+      <a class="topbar-site" href="/" target="_blank" rel="noopener" aria-label="View website">↗</a>
     </header>
 
     <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
@@ -59,20 +77,35 @@
           <span>Admin panel</span>
         </div>
       </div>
+
       <nav class="nav" id="nav">
-        <a href="#/dashboard" data-route="dashboard"><span class="nav-ico" aria-hidden="true">◧</span>Dashboard</a>
-        <a href="#/leads" data-route="leads"><span class="nav-ico" aria-hidden="true">✉</span>Leads<span class="nav-badge" id="lead-badge" hidden></span></a>
-        <a href="#/settings" data-route="settings"><span class="nav-ico" aria-hidden="true">⚙</span>Site settings</a>
-        <a href="#/projects" data-route="projects"><span class="nav-ico" aria-hidden="true">★</span>Projects</a>
-        <a href="#/plans" data-route="plans"><span class="nav-ico" aria-hidden="true">₹</span>Pricing plans</a>
-        <a href="#/faqs" data-route="faqs"><span class="nav-ico" aria-hidden="true">?</span>FAQs</a>
-        <a href="#/reviews" data-route="reviews"><span class="nav-ico" aria-hidden="true">❝</span>Reviews</a>
-        <a href="#/blog" data-route="blog"><span class="nav-ico" aria-hidden="true">✎</span>Blog</a>
-        <a href="#/media" data-route="media"><span class="nav-ico" aria-hidden="true">▣</span>Media library</a>
+        <span class="nav-group">Overview</span>
+        <a href="#/dashboard" data-route="dashboard"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>Dashboard</a>
+        <a href="#/leads" data-route="leads"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13l3.5 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg>Leads<span class="nav-badge" id="lead-badge" hidden></span></a>
+
+        <span class="nav-group">Content</span>
+        <a href="#/projects" data-route="projects"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Projects</a>
+        <a href="#/plans" data-route="plans"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Pricing plans</a>
+        <a href="#/faqs" data-route="faqs"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>FAQs</a>
+        <a href="#/reviews" data-route="reviews"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>Reviews</a>
+        <a href="#/blog" data-route="blog"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Blog</a>
+
+        <span class="nav-group">Library</span>
+        <a href="#/media" data-route="media"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Media library</a>
+
+        <span class="nav-group">Website</span>
+        <a href="#/settings" data-route="settings"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Site settings</a>
       </nav>
+
       <div class="sidebar-foot">
-        <a class="nav-ext" href="/" target="_blank" rel="noopener">View site ↗</a>
-        <button type="button" class="btn btn-ghost-dark btn-block" id="logout-btn">Log out</button>
+        <div class="profile">
+          <img src="/assets/images/gen_sushanta_circle.png" alt="" width="40" height="40">
+          <div><strong>Sushanta Lohar</strong><span>Administrator</span></div>
+        </div>
+        <div class="sidebar-actions">
+          <a class="nav-ext" href="/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>View site</a>
+          <button type="button" class="btn-logout" id="logout-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>Log out</button>
+        </div>
       </div>
     </aside>
 
