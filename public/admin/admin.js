@@ -839,6 +839,13 @@ function viewSettings(main, rest = []) {
 /* =========================================================================
    Generic CRUD list (projects, reviews)
    ========================================================================= */
+// Copy each column header onto its cells so tables can stack into cards on phones.
+function labelCells(table) {
+  const heads = [...table.tHead.rows[0].cells].map((th) => (th.querySelector('.visually-hidden') ? '' : th.textContent.trim()));
+  for (const tr of table.tBodies[0].rows) [...tr.cells].forEach((td, i) => { if (heads[i]) td.dataset.label = heads[i]; });
+  return table;
+}
+
 function crudPage(main, cfg) {
   const addBtn = h('button', { type: 'button', class: 'btn btn-primary' }, `+ Add ${cfg.singular}`);
   const { body } = page(main, cfg.title, cfg.subtitle, addBtn);
@@ -871,7 +878,7 @@ function crudPage(main, cfg) {
         h('td', null, sortInput(item)),
         h('td', { class: 'actions' }, editBtn, delBtn));
     }));
-    body.replaceChildren(h('div', { class: 'table-wrap' }, h('table', { class: 'list' }, thead, tbody)));
+    body.replaceChildren(h('div', { class: 'table-wrap' }, labelCells(h('table', { class: 'list' }, thead, tbody))));
   }
 
   async function patch(item, changes) {
@@ -1256,7 +1263,7 @@ function viewBlog(main, rest) {
       return;
     }
     if (!shown.length) { list.replaceChildren(stateBox('⌕', 'No matches', `No posts match “${search.value.trim()}”.`)); return; }
-    list.replaceChildren(h('div', { class: 'table-wrap' }, h('table', { class: 'list' },
+    list.replaceChildren(h('div', { class: 'table-wrap' }, labelCells(h('table', { class: 'list' },
       h('thead', null, h('tr', null, ['Title', 'Category', 'Status', 'Date'].map((t) => h('th', { scope: 'col' }, t)), h('th', null, h('span', { class: 'visually-hidden' }, 'Actions')))),
       h('tbody', null, shown.map((p) => {
         const live = Number(p.published) === 1;
@@ -1268,7 +1275,7 @@ function viewBlog(main, rest) {
           h('td', { class: 'actions' },
             live && p.slug && h('a', { class: 'btn btn-sm', href: `/blog/${encodeURIComponent(p.slug)}`, target: '_blank', rel: 'noopener' }, 'View ↗'),
             h('a', { class: 'btn btn-sm', href: `#/blog/${encodeURIComponent(p.id)}` }, 'Edit')));
-      })))));
+      }))))));
   }
 
   async function load() {
