@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin · Sushanta Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.js"></script>
+</head>
+<body>
+  <!-- Boot / loading state -->
+  <div id="boot" class="boot" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <span>Loading admin…</span>
+  </div>
+
+  <!-- Login -->
+  <main id="login" class="login" hidden>
+    <form id="login-form" class="login-card" novalidate>
+      <div class="login-brand">
+        <span class="logo-mark" aria-hidden="true">S</span>
+        <div>
+          <strong>Sushanta Digital</strong>
+          <span>Admin panel</span>
+        </div>
+      </div>
+      <h1>Welcome back</h1>
+      <p class="muted">Enter your admin password to manage the website.</p>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <p id="login-error" class="form-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-primary btn-block" id="login-submit">Log in</button>
+      <a class="login-back" href="/">← Back to website</a>
+    </form>
+  </main>
+
+  <!-- App shell -->
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <button type="button" class="icon-btn" id="menu-toggle" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </button>
+      <span class="topbar-title">Sushanta Digital <em>Admin</em></span>
+    </header>
+
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Admin navigation">
+      <div class="sidebar-brand">
+        <span class="logo-mark" aria-hidden="true">S</span>
+        <div>
+          <strong>Sushanta Digital</strong>
+          <span>Admin panel</span>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#/dashboard" data-route="dashboard"><span class="nav-ico" aria-hidden="true">◧</span>Dashboard</a>
+        <a href="#/leads" data-route="leads"><span class="nav-ico" aria-hidden="true">✉</span>Leads<span class="nav-badge" id="lead-badge" hidden></span></a>
+        <a href="#/settings" data-route="settings"><span class="nav-ico" aria-hidden="true">⚙</span>Site settings</a>
+        <a href="#/projects" data-route="projects"><span class="nav-ico" aria-hidden="true">★</span>Projects</a>
+        <a href="#/plans" data-route="plans"><span class="nav-ico" aria-hidden="true">₹</span>Pricing plans</a>
+        <a href="#/faqs" data-route="faqs"><span class="nav-ico" aria-hidden="true">?</span>FAQs</a>
+        <a href="#/reviews" data-route="reviews"><span class="nav-ico" aria-hidden="true">❝</span>Reviews</a>
+        <a href="#/blog" data-route="blog"><span class="nav-ico" aria-hidden="true">✎</span>Blog</a>
+        <a href="#/media" data-route="media"><span class="nav-ico" aria-hidden="true">▣</span>Media library</a>
+      </nav>
+      <div class="sidebar-foot">
+        <a class="nav-ext" href="/" target="_blank" rel="noopener">View site ↗</a>
+        <button type="button" class="btn btn-ghost-dark btn-block" id="logout-btn">Log out</button>
+      </div>
+    </aside>
+
+    <main class="main" id="main" tabindex="-1"></main>
+  </div>
+
+  <!-- Modal host -->
+  <div id="modal-root"></div>
+
+  <!-- Toasts -->
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>

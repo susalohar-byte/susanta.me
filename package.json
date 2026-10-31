@@ -1,0 +1,19 @@
+{
+  "name": "susanta.me",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Sushanta Digital website + admin panel on Cloudflare Pages (D1 + R2)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && wrangler pages dev",
+    "db:migrate:local": "wrangler d1 migrations apply susanta-me-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply susanta-me-db --remote",
+    "deploy": "npm run build && wrangler pages deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.128.0"
+  },
+  "author": "Sushanta Lohar",
+  "license": "ISC",
+  "type": "module"
+}

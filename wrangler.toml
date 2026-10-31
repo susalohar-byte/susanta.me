@@ -1,0 +1,21 @@
+name = "susanta-me"
+compatibility_date = "2025-09-01"
+pages_build_output_dir = "public"
+
+# D1 database: settings, projects, reviews, blog posts.
+# Create with: npx wrangler d1 create susanta-me-db  → paste the database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "susanta-me-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# R2 bucket for uploaded images (logo, hero, blog covers, portfolio).
+# Create with: npx wrangler r2 bucket create susanta-me-media
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "susanta-me-media"
+
+# Secrets (set in the Cloudflare dashboard or with `npx wrangler pages secret put NAME`):
+#   ADMIN_PASSWORD  – password for /admin
+#   SESSION_SECRET  – long random string used to sign the admin session cookie

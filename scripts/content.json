@@ -1,0 +1,434 @@
+{
+ "settings": {
+  "logo": "/assets/logo.svg",
+  "logo_white": "/assets/logo-white.svg",
+  "favicon": "/assets/logo.svg",
+  "hero_image": "/assets/images/hero-portrait.jpg",
+  "hero_note": "Digital solutions for local businesses",
+  "hero_title": "Grow Your Business [[Online]]",
+  "hero_subtitle": "লিড জেনারেশন, WhatsApp অটোমেশন, Meta Ads আর ফাস্ট ওয়েবসাইট — একটাই সহজ সিস্টেম, যা সত্যিই আপনার কাছে আরও কাস্টমার নিয়ে আসে।",
+  "whatsapp": "919547771118",
+  "phone_display": "+91 95477 71118",
+  "email": "contact@susanta.me",
+  "location": "Manbazar, Purulia, West Bengal",
+  "instagram": "",
+  "facebook": "",
+  "linkedin": "",
+  "youtube": "",
+  "stat_1_value": "50+",
+  "stat_1_label": "Local businesses empowered",
+  "stat_2_value": "3.2x",
+  "stat_2_label": "Avg. enquiry growth in 30 days",
+  "stat_3_value": "7 days",
+  "stat_3_label": "From idea to live launch",
+  "stat_4_value": "99%",
+  "stat_4_label": "Client satisfaction",
+  "og_image": "/assets/images/og-cover.jpg"
+ },
+ "projects": [
+  {
+   "slug": "practicekoro",
+   "title": "PracticeKoro",
+   "category": "education",
+   "category_label": "EXAM PREP PLATFORM",
+   "location": "West Bengal",
+   "image": "/assets/portfolio/site_practicekoro.jpg",
+   "url": "https://practicekoro.online",
+   "highlight": "WB govt exam prep",
+   "challenge": "Government job aspirants in West Bengal needed one organised, Bengali-first place to practise — instead of scattered PDFs and random question banks.",
+   "solution": "A Bengali-first mock test platform for West Bengal government exams — topic tests, full mock tests, previous-year papers and detailed solutions, all in one place.",
+   "metrics": [
+    {
+     "value": "5+",
+     "label": "Exam categories"
+    },
+    {
+     "value": "PYQ",
+     "label": "With detailed solutions"
+    },
+    {
+     "value": "বাংলা",
+     "label": "Bengali-first experience"
+    }
+   ],
+   "sort": 1,
+   "published": 1
+  },
+  {
+   "slug": "telepost",
+   "title": "TelePost",
+   "category": "education",
+   "category_label": "EDTECH · AI SAAS",
+   "location": "telepost.tech",
+   "image": "/assets/portfolio/site_telepost.jpg",
+   "url": "https://telepost.tech",
+   "highlight": "AI · Telegram",
+   "challenge": "Teachers running Telegram channels were spending hours every week writing quiz questions and posting them one by one.",
+   "solution": "An AI quiz generator that turns any topic or PDF into exam-quality quizzes and auto-posts them to Telegram channels — with scheduling and instant explanations.",
+   "metrics": [
+    {
+     "value": "20",
+     "label": "Quizzes posted in under a minute"
+    },
+    {
+     "value": "PDF→Quiz",
+     "label": "AI generation"
+    },
+    {
+     "value": "Auto",
+     "label": "Telegram scheduling"
+    }
+   ],
+   "sort": 2,
+   "published": 1
+  },
+  {
+   "slug": "tr-solutions-academy",
+   "title": "TR Solutions Academy",
+   "category": "education",
+   "category_label": "EDUCATION PLATFORM",
+   "location": "",
+   "image": "/assets/portfolio/site_trsolutions.jpg",
+   "url": "",
+   "highlight": "Education platform",
+   "challenge": "An academy that needed a modern online home for its courses and students.",
+   "solution": "An education platform for TR Solutions Academy — course information, student enquiries and a clean, mobile-first experience.",
+   "metrics": [],
+   "sort": 3,
+   "published": 1
+  }
+ ],
+ "reviews": [
+  {
+   "id": 1,
+   "name": "Rajesh Sharma",
+   "role": "Director, Apex Coaching Centre, Kolkata",
+   "result": "+45 Enrollments in 30 Days",
+   "quote": "Before working with Sushanta, we relied only on paper pamphlets. Within 2 weeks of launching our new website and WhatsApp lead flow, we got 86 enquiries and enrolled 45+ new students for our board exam batch. Best investment we made.",
+   "rating": 5,
+   "sort": 1,
+   "published": 1,
+   "created_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 2,
+   "name": "Dr. Ananya Sen",
+   "role": "Founder, SmileCare Dental Clinic, Howrah",
+   "result": "65% Bookings Automated",
+   "quote": "Patients love booking appointments on WhatsApp straight from our website. We no longer miss enquiries after clinic hours, and our reception finally has breathing room. Sushanta is responsive, polite and very professional.",
+   "rating": 5,
+   "sort": 2,
+   "published": 1,
+   "created_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 3,
+   "name": "Tanmoy Das",
+   "role": "Founder, Terra Himalayan Tours, Siliguri",
+   "result": "+140% Booking Enquiries",
+   "quote": "Our tour package enquiries jumped 140% in the first month. The website looks premium, loads in a flash on mobile, and the auto-reply sends our itineraries in under a second.",
+   "rating": 5,
+   "sort": 3,
+   "published": 1,
+   "created_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 4,
+   "name": "Sneha Sen",
+   "role": "Owner, Aura Luxury Salon & Spa, Salt Lake",
+   "result": "140+ Bookings / Month",
+   "quote": "Our clients love the luxury mobile feel of the website, and click-to-WhatsApp booking brings 140+ visits every month. The Instagram ads he set up keep our weekends full.",
+   "rating": 5,
+   "sort": 4,
+   "published": 1,
+   "created_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 5,
+   "name": "Amitava Das",
+   "role": "Managing Partner, Das Sanitary & Tiles, Durgapur",
+   "result": "Top 3 on Google Maps",
+   "quote": "What impressed me most is the speed and honesty. No technical nonsense. Sushanta was always reachable on WhatsApp, made every revision immediately, and helped us get more Google reviews.",
+   "rating": 5,
+   "sort": 5,
+   "published": 1,
+   "created_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 6,
+   "name": "Priya Sharma",
+   "role": "Principal, Little Angels Pre-School, New Town",
+   "result": "Both Batches Filled",
+   "quote": "Admissions used to depend entirely on paper flyers. Sushanta created a local Meta ad and an admission landing page that filled our morning and afternoon batches for the new academic year.",
+   "rating": 5,
+   "sort": 6,
+   "published": 1,
+   "created_at": "2026-10-31 03:42:59"
+  }
+ ],
+ "posts": [
+  {
+   "id": 1,
+   "slug": "whatsapp-vs-forms",
+   "title": "Why Indian Customers Prefer WhatsApp Over Website Forms",
+   "excerpt": "Friction kills enquiries. Here's why click-to-WhatsApp buttons can double your enquiry rate compared with old-style contact forms.",
+   "category": "WhatsApp Automation",
+   "cover_image": "/assets/portfolio/gen_coaching.jpg",
+   "content": "Look at your own phone. How many unread emails do you have? Now, how many unread WhatsApp chats? For most people in India the answer is obvious — WhatsApp is where real conversations happen.\n\n## Forms feel like work\n\nA contact form asks for name, email, phone, subject and message, then sends it into an inbox nobody checks quickly. On a small phone screen, every extra field means more people give up.\n\n## WhatsApp feels like a conversation\n\nA click-to-WhatsApp button opens a chat with a ready-made message like “Hi, I want the price list”. One tap, and the customer is talking to you. Add an instant auto-reply and they get an answer while they're still interested.\n\n- Use one clear WhatsApp button on every screen\n- Pre-fill the message with what the customer wants\n- Reply instantly with a menu: prices, timings, booking\n- Save every chat as a lead in Google Sheets",
+   "published": 1,
+   "published_at": "2026-10-20",
+   "updated_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 2,
+   "slug": "slow-website",
+   "title": "Why Your Website Is Slow (And What It's Costing You)",
+   "excerpt": "If your site takes more than 3 seconds to load on mobile, most local buyers leave. Here's how lean code keeps load times under 1.5s.",
+   "category": "Website Speed",
+   "cover_image": "/assets/portfolio/gen_clinic.jpg",
+   "content": "Most local customers find you on a phone, often on mobile data. If your page shows a blank screen for three or four seconds, they press back and call your competitor.\n\n## Common reasons websites are slow\n\n- Heavy themes and dozens of plugins\n- Huge, uncompressed photos\n- Sliders, pop-ups and scripts nobody needs\n- Cheap overloaded hosting\n\n## What fast looks like\n\nA focused page with compressed images, clean code and good hosting can load in under 1.5 seconds. That speed helps your Google ranking too — Google rewards pages that load fast on mobile.\n\nQuick test: open your website on your phone using mobile data. If you get bored waiting, so do your customers.",
+   "published": 1,
+   "published_at": "2026-10-17",
+   "updated_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 3,
+   "slug": "meta-ads-local",
+   "title": "How Local Clinics & Salons Get Daily Enquiries on ₹300/Day",
+   "excerpt": "You don't need a big budget. Radius targeting on Facebook & Instagram brings genuine nearby customers straight to your WhatsApp.",
+   "category": "Meta Ads",
+   "cover_image": "/assets/portfolio/gen_salon.jpg",
+   "content": "Big brands advertise to everyone. A local clinic or salon only needs people who live or work within a few kilometres. That's what makes local ads affordable.\n\n## The simple local ad recipe\n\n1. Target a 5–15 km radius around your business\n2. Show one clear offer — a first-visit discount, free check-up or trial\n3. Use real photos or a short reel of your work\n4. Use a “Send Message” button that opens WhatsApp\n5. Reply instantly with an automated menu\n\nStart with ₹200–₹400 per day for one to two weeks, track which ad brings the most WhatsApp chats, then put more budget behind the winner.",
+   "published": 1,
+   "published_at": "2026-10-14",
+   "updated_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 4,
+   "slug": "google-maps-top-3",
+   "title": "Google Business Profile Checklist: Rank in the Top 3 on Maps",
+   "excerpt": "A simple checklist to optimise your shop, clinic or service profile so nearby customers find you before your competitors.",
+   "category": "Local SEO",
+   "cover_image": "/assets/portfolio/gen_travel.jpg",
+   "content": "When someone searches “dentist near me” or “coaching centre in Salt Lake”, Google shows three businesses on a map. Being in those three is worth more than any billboard.\n\n## The checklist\n\n1. Choose the most accurate primary category\n2. Write a clear description with your services and area\n3. Add real photos every month — shop, team, work\n4. Keep hours, phone and website link correct\n5. Ask every happy customer for a Google review, and reply to all reviews\n6. Post offers and updates on your profile regularly\n\nLink your profile to a fast website with the same name, address and phone number. Consistency builds trust with Google.",
+   "published": 1,
+   "published_at": "2026-10-11",
+   "updated_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 5,
+   "slug": "leads-google-sheets",
+   "title": "How to Save WhatsApp Enquiries to Google Sheets Automatically",
+   "excerpt": "Never lose track of a prospect again. A simple workflow to organise leads, numbers and requirements without a complicated CRM.",
+   "category": "Workflows",
+   "cover_image": "/assets/portfolio/gen_coaching.jpg",
+   "content": "Many businesses lose customers simply because enquiries get buried in chats. A shared Google Sheet fixes this without expensive software.\n\n## What to capture for every lead\n\n- Name and phone number\n- What they're interested in\n- Where they came from (ad, Google, website)\n- Date and follow-up status\n\nWith WhatsApp automation, these details can be filled in automatically when someone chooses an option from your menu. Your team checks one sheet every morning and calls the hottest leads first.",
+   "published": 1,
+   "published_at": "2026-10-08",
+   "updated_at": "2026-10-31 03:42:59"
+  },
+  {
+   "id": 6,
+   "slug": "lead-machine-tweaks",
+   "title": "5 Simple Changes That Turn Your Website Into a 24/7 Lead Machine",
+   "excerpt": "From a sticky WhatsApp button to local social proof, five quick fixes any local business can apply this week.",
+   "category": "Conversions",
+   "cover_image": "/assets/portfolio/gen_clinic.jpg",
+   "content": "You don't always need a new website. These five changes often double enquiries on an existing one.\n\n1. Put your main offer and a WhatsApp button at the very top\n2. Add a sticky WhatsApp button that follows people as they scroll\n3. Show real reviews with names and local areas\n4. Replace long forms with a 3-field form or one tap to WhatsApp\n5. Show prices or “starting from” prices — hidden prices scare buyers away\n\nMake one change at a time and watch your enquiry count for a week. Keep what works.",
+   "published": 1,
+   "published_at": "2026-10-05",
+   "updated_at": "2026-10-31 03:42:59"
+  }
+ ],
+ "plans": [
+  {
+   "name": "Starter Website",
+   "badge": "STARTER PRESENCE",
+   "price": "6,999",
+   "period": "one-time",
+   "description": "For small shops and solo businesses that need a simple website, fast.",
+   "features": [
+    "Custom 1-page high-converting landing page",
+    "100% mobile & tablet responsive",
+    "Direct WhatsApp click-to-chat button",
+    "Fast 5-day delivery",
+    "Google Maps location setup",
+    "Domain & hosting setup guidance"
+   ],
+   "cta": "Choose Starter Plan",
+   "popular": 0,
+   "sort": 1,
+   "published": 1
+  },
+  {
+   "name": "Growth & Automation",
+   "badge": "GROWTH BUSINESS",
+   "price": "14,999",
+   "period": "one-time",
+   "description": "For clinics, coaching centres, salons and restaurants that want new enquiries every week.",
+   "features": [
+    "Up to 5 custom high-conversion pages",
+    "Smart WhatsApp lead capture & auto-reply",
+    "Appointment / booking form",
+    "Local SEO & Google Business Profile setup",
+    "Super fast <1.5s loading speed",
+    "30 days free maintenance & updates",
+    "7-day launch guarantee"
+   ],
+   "cta": "Get Growth Plan",
+   "popular": 1,
+   "sort": 2,
+   "published": 1
+  },
+  {
+   "name": "Full Digital Suite",
+   "badge": "SCALE & DOMINATE",
+   "price": "24,999",
+   "period": "one-time",
+   "description": "Website, WhatsApp automation and ads — everything you need to grow in your area.",
+   "features": [
+    "Complete custom multi-page website",
+    "Advanced multi-step WhatsApp chatbot",
+    "Meta (Facebook & Instagram) ads setup",
+    "Ad creatives & copywriting",
+    "Meta Pixel & Conversions API tracking",
+    "60 days VIP priority support",
+    "Monthly analytics & performance report"
+   ],
+   "cta": "Scale With Full Suite",
+   "popular": 0,
+   "sort": 3,
+   "published": 1
+  }
+ ],
+ "faqs": [
+  {
+   "category": "🚀 Getting Started",
+   "question": "How fast will my website be live?",
+   "answer": "বেশিরভাগ প্রজেক্ট **৫ থেকে ৭ কাজের দিনের মধ্যে** লাইভ হয়ে যায়। একটা সিম্পল ১-পেজ Starter ওয়েবসাইট ৩-৪ দিনেই রেডি হতে পারে। লাইভ করার আগে আপনি একটা প্রাইভেট প্রিভিউ লিংক পাবেন, নিজের ফোনে দেখে নেওয়ার জন্য।",
+   "show_on_home": 1,
+   "sort": 1,
+   "published": 1
+  },
+  {
+   "category": "🚀 Getting Started",
+   "question": "Do I need any technical knowledge?",
+   "answer": "একদমই না। ডোমেইন গাইডেন্স, হোস্টিং, SSL সিকিউরিটি, মোবাইল অপটিমাইজেশন, Google সেটআপ আর টেস্টিং — সব আমি সামলাই। আপনি শুধু WhatsApp-এ আপনার ব্যবসার ডিটেলস আর ছবি পাঠিয়ে দিন।",
+   "show_on_home": 1,
+   "sort": 2,
+   "published": 1
+  },
+  {
+   "category": "🚀 Getting Started",
+   "question": "Do I need to buy a domain and hosting myself?",
+   "answer": "আপনার আগে থেকেই ডোমেইন থাকলে আমরা সেটাই কানেক্ট করে দিই। না থাকলে আপনার নিজের নামে কিনতে আমি গাইড করব (সাধারণত বছরে ₹600–₹800), যাতে ওটা সবসময় আপনারই থাকে।",
+   "show_on_home": 0,
+   "sort": 3,
+   "published": 1
+  },
+  {
+   "category": "🚀 Getting Started",
+   "question": "Do you work with businesses outside Purulia?",
+   "answer": "হ্যাঁ। আমি পুরুলিয়ার মানবাজারে থাকি, আর পুরো পশ্চিমবঙ্গ তো বটেই, সারা ভারতের ব্যবসার সঙ্গে কাজ করি। সব কাজ হয় WhatsApp, ফোন কল আর স্ক্রিন-শেয়ারে।",
+   "show_on_home": 0,
+   "sort": 4,
+   "published": 1
+  },
+  {
+   "category": "🎯 Lead Generation & WhatsApp",
+   "question": "What exactly is lead generation?",
+   "answer": "এটা এমন একটা সিস্টেম যা অ্যাড, Google আর আপনার ওয়েবসাইটের মাধ্যমে আপনার সার্ভিসে আগ্রহী লোকেদের নিয়মিত আপনার কাছে নিয়ে আসে — আর তাঁদের নাম, ফোন নম্বর আর কী দরকার সেটা ধরে রাখে, যাতে আপনি তাঁদের কাস্টমার বানাতে পারেন।",
+   "show_on_home": 1,
+   "sort": 5,
+   "published": 1
+  },
+  {
+   "category": "🎯 Lead Generation & WhatsApp",
+   "question": "How does WhatsApp automation bring me more customers?",
+   "answer": "কেউ আপনার ওয়েবসাইট বা অ্যাডে ট্যাপ করলেই একটা রেডি মেসেজ সহ WhatsApp খুলে যায়। সঙ্গে সঙ্গে একটা অটো-রিপ্লাই একটা মেনু দিয়ে তাঁকে স্বাগত জানায় (সার্ভিস, দাম, বুকিং, টাইমিং) আর তাঁর ডিটেলস সেভ করে রাখে। আপনি ব্যস্ত ছিলেন বলে আর কোনো কাস্টমার হাতছাড়া হবে না।",
+   "show_on_home": 1,
+   "sort": 6,
+   "published": 1
+  },
+  {
+   "category": "🎯 Lead Generation & WhatsApp",
+   "question": "Can I still chat normally with my customers?",
+   "answer": "হ্যাঁ। অটোমেশন শুধু প্রথম গ্রিটিং, মেনু আর লিড ক্যাপচারটা সামলায়। আপনি বা আপনার স্টাফ যখন খুশি যে কোনো চ্যাটে ঢুকে কথা বলতে পারেন।",
+   "show_on_home": 0,
+   "sort": 7,
+   "published": 1
+  },
+  {
+   "category": "🎯 Lead Generation & WhatsApp",
+   "question": "Where do my leads go?",
+   "answer": "প্রতিটা লিড নিজে থেকেই একটা প্রাইভেট Google Sheet-এ সেভ হয়ে যায় — নাম, ফোন, কী দরকার আর কোথা থেকে এসেছে সহ। ফলে আপনি ফলো-আপ করতে পারেন আর বুঝতে পারেন কোনটা কাজ করছে।",
+   "show_on_home": 0,
+   "sort": 8,
+   "published": 1
+  },
+  {
+   "category": "📣 Meta Ads (Facebook & Instagram)",
+   "question": "How much should I spend on ads?",
+   "answer": "5–15 কিমি রেডিয়াস টার্গেট করা লোকাল ব্যবসার জন্য **দিনে ₹200 থেকে ₹400** সাধারণত যথেষ্ট, নিয়মিত এনকোয়ারি পাওয়া শুরু করার জন্য। আমরা ছোট করে শুরু করি, মেপে দেখি, তারপর যেটা কাজ করছে সেটা বাড়াই।",
+   "show_on_home": 0,
+   "sort": 9,
+   "published": 1
+  },
+  {
+   "category": "📣 Meta Ads (Facebook & Instagram)",
+   "question": "Is the ad budget included in your price?",
+   "answer": "না — অ্যাডের খরচ আপনার নিজের অ্যাকাউন্ট থেকে সরাসরি Meta-কে দেওয়া হয়, যাতে কন্ট্রোল আপনার হাতেই থাকে। আমাদের ফি-তে থাকে সেটআপ, ক্রিয়েটিভ, অ্যাডের লেখা, টার্গেটিং আর ট্র্যাকিং।",
+   "show_on_home": 0,
+   "sort": 10,
+   "published": 1
+  },
+  {
+   "category": "💳 Pricing & Payments",
+   "question": "What are your payment terms?",
+   "answer": "কাজ শুরু করতে 50% অ্যাডভান্স, আর বাকি 50% লঞ্চের আগে, আপনি ডিজাইন দেখে অ্যাপ্রুভ করার পরেই। আমরা UPI আর ব্যাঙ্ক ট্রান্সফার নিই।",
+   "show_on_home": 0,
+   "sort": 11,
+   "published": 1
+  },
+  {
+   "category": "💳 Pricing & Payments",
+   "question": "Are there hidden monthly fees?",
+   "answer": "না। মূল প্যাকেজগুলো এককালীন পেমেন্ট। অ্যাড ম্যানেজমেন্ট বা মেইনটেন্যান্সের মতো মাসিক সার্ভিস পুরোপুরি অপশনাল — আপনি চাইলে তবেই।",
+   "show_on_home": 0,
+   "sort": 12,
+   "published": 1
+  },
+  {
+   "category": "💳 Pricing & Payments",
+   "question": "Is the ad budget included in the Full Digital Suite?",
+   "answer": "সুইটে সেটআপ, ডিজাইন, লেখা আর ট্র্যাকিং আছে। অ্যাডের খরচ আপনার নিজের অ্যাকাউন্ট থেকে সরাসরি Meta-কে যায়, তাই নিয়ন্ত্রণ আপনার হাতেই। বেশিরভাগ লোকাল ব্যবসা দিনে ₹200–₹400 দিয়ে শুরু করে।",
+   "show_on_home": 0,
+   "sort": 13,
+   "published": 1
+  },
+  {
+   "category": "💳 Pricing & Payments",
+   "question": "Can I upgrade later?",
+   "answer": "হ্যাঁ। Starter দিয়ে শুরু করে পরে Growth বা Full Suite-এ যেতে পারেন — শুধু নতুন কাজের বাড়তি টাকাটা দেবেন।",
+   "show_on_home": 0,
+   "sort": 14,
+   "published": 1
+  },
+  {
+   "category": "🛠️ After Launch",
+   "question": "What if I need changes later?",
+   "answer": "প্রতিটা প্যাকেজে লঞ্চের পর ফ্রি সাপোর্ট থাকে (প্ল্যান অনুযায়ী 30–60 দিন)। দাম বদল, নতুন ছবি, পুজো বা উৎসবের অফার ব্যানার — শুধু একটা WhatsApp মেসেজ করে দিন।",
+   "show_on_home": 0,
+   "sort": 15,
+   "published": 1
+  },
+  {
+   "category": "🛠️ After Launch",
+   "question": "Will my website show up on Google?",
+   "answer": "হ্যাঁ। প্রতিটা সাইট SEO-রেডি করে বানানো হয়, Google Search Console-এ সাবমিট করা হয় আর আপনার Google Business Profile-এর সঙ্গে কানেক্ট করা হয়, যাতে আশেপাশের কাস্টমাররা আপনাকে খুঁজে পান।",
+   "show_on_home": 0,
+   "sort": 16,
+   "published": 1
+  }
+ ]
+}

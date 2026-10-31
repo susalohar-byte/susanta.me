@@ -1,0 +1,5 @@
+<svg width="190" height="36" viewBox="0 0 190 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="36" height="36" rx="10" fill="#057442"/>
+  <path d="M23 12C23 10.3431 21.6569 9 20 9H16C14.3431 9 13 10.3431 13 12C13 15.5 23 14.5 23 20C23 22.2091 21.2091 24 19 24H15C13.3431 24 12 22.6569 12 21" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="46" y="24" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="18" font-weight="800" fill="#06281D" letter-spacing="-0.5">Sushanta<tspan fill="#057442" font-weight="700"> Digital</tspan></text>
+</svg>
