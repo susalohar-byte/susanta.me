@@ -5,7 +5,7 @@ INSERT OR IGNORE INTO settings (key, value) VALUES ('favicon', '/assets/logo.svg
 INSERT OR IGNORE INTO settings (key, value) VALUES ('hero_image', '/assets/images/hero-portrait.jpg');
 INSERT OR IGNORE INTO settings (key, value) VALUES ('hero_note', 'Digital solutions for local businesses');
 INSERT OR IGNORE INTO settings (key, value) VALUES ('hero_title', 'Grow Your Business [[Online]]');
-INSERT OR IGNORE INTO settings (key, value) VALUES ('hero_subtitle', 'লিড জেনারেশন, WhatsApp অটোমেশন, Meta Ads আর ফাস্ট ওয়েবসাইট — একটাই সহজ সিস্টেম, যা সত্যিই আপনার কাছে আরও কাস্টমার নিয়ে আসে।');
+INSERT OR IGNORE INTO settings (key, value) VALUES ('hero_subtitle', 'Lead generation, WhatsApp automation, Meta ads and fast websites — one simple system that actually brings you more customers.');
 INSERT OR IGNORE INTO settings (key, value) VALUES ('whatsapp', '919547771118');
 INSERT OR IGNORE INTO settings (key, value) VALUES ('phone_display', '+91 95477 71118');
 INSERT OR IGNORE INTO settings (key, value) VALUES ('email', 'contact@susanta.me');

@@ -1,6 +1,7 @@
-import { json } from '../../../_lib/http.js';
+import { json, error } from '../../../_lib/http.js';
 
 export async function onRequestGet({ env }) {
+  if (!env.MEDIA) return error('Image storage is not enabled yet. Turn on R2 in the Cloudflare dashboard, then images can be uploaded.', 503);
   const items = [];
   let cursor;
   do {

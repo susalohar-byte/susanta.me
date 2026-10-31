@@ -7,14 +7,15 @@ pages_build_output_dir = "public"
 [[d1_databases]]
 binding = "DB"
 database_name = "susanta-me-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "a8e12015-55be-4a9a-8523-2aee21dfde37"
 migrations_dir = "migrations"
 
 # R2 bucket for uploaded images (logo, hero, blog covers, portfolio).
 # Create with: npx wrangler r2 bucket create susanta-me-media
-[[r2_buckets]]
-binding = "MEDIA"
-bucket_name = "susanta-me-media"
+# Enable after turning on R2 in the dashboard and running: npx wrangler r2 bucket create susanta-me-media
+# [[r2_buckets]]
+# binding = "MEDIA"
+# bucket_name = "susanta-me-media"
 
 # Secrets (set in the Cloudflare dashboard or with `npx wrangler pages secret put NAME`):
 #   ADMIN_PASSWORD  – password for /admin

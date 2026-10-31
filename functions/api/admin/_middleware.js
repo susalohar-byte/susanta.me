@@ -8,7 +8,7 @@ export async function onRequest({ request, env, next }) {
     if (origin && origin !== url.origin) return error('Cross-origin request blocked', 403);
   }
   if (url.pathname === '/api/admin/login') return next();
-  if (!env.DB || !env.MEDIA) return error('Database or media storage is not configured', 500);
+  if (!env.DB) return error('Database is not configured', 500);
   if (!(await isAuthed(request, env))) return error('Please log in', 401);
   try {
     return await next();

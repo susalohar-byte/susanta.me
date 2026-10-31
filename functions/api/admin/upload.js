@@ -7,6 +7,7 @@ const TYPES = {
 const MAX_BYTES = 5 * 1024 * 1024;
 
 export async function onRequestPost({ request, env }) {
+  if (!env.MEDIA) return error('Image storage is not enabled yet. Turn on R2 in the Cloudflare dashboard, then images can be uploaded.', 503);
   let form;
   try {
     form = await request.formData();
