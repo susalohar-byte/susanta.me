@@ -30,7 +30,9 @@ export async function onRequestPost({ request, env }) {
   };
   if (!lead.name || !/\d{6,}/.test(lead.phone.replace(/\D/g, ''))) return error('Please enter your name and a valid phone number.');
 
-  const ipHash = await hashIp(request.headers.get('cf-connecting-ip') || 'local', env.SESSION_SECRET || 'leads');
+  // x-sd-client-ip is set by the susanta.me domain Worker, which forwards visitors to this Pages project.
+  const ip = request.headers.get('x-sd-client-ip') || request.headers.get('cf-connecting-ip') || 'local';
+  const ipHash = await hashIp(ip, env.SESSION_SECRET || 'leads');
   const recent = await env.DB.prepare("SELECT COUNT(*) AS n FROM leads WHERE ip_hash = ? AND created_at > datetime('now', '-10 minutes')")
     .bind(ipHash).first();
   if ((recent?.n || 0) >= MAX_PER_10_MIN) return error('Too many enquiries — please try again in a few minutes.', 429);

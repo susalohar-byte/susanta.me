@@ -1,0 +1,11 @@
+name = "susanta-me-domain"
+main = "index.js"
+compatibility_date = "2025-09-01"
+workers_dev = false
+
+# susanta.me's DNS records are proxied (orange cloud), so these routes send every request
+# for the domain to this Worker — no DNS changes needed.
+routes = [
+  { pattern = "susanta.me/*", zone_name = "susanta.me" },
+  { pattern = "www.susanta.me/*", zone_name = "susanta.me" },
+]

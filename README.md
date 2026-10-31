@@ -12,7 +12,15 @@ Static, SEO-friendly site on **Cloudflare Pages**, with an admin panel at `/admi
 
 Content edited in `/admin` shows up on the site immediately — `functions/_middleware.js` fills it into each page before it's sent, so Google sees it too. Blog posts get their own pages at `/blog/{slug}` and are added to `/sitemap.xml` automatically.
 
-## First-time deploy (about 10 minutes)
+## Live setup (done 31 Oct 2026)
+
+- **Site:** Cloudflare Pages project `susanta-me` → https://susanta-me.pages.dev
+- **Domain:** https://susanta.me is served by the small Worker in `domain-worker/` (routes `susanta.me/*` and `www.susanta.me/*`, www and http redirect to https://susanta.me). The domain's DNS records stay as they are — they're proxied, so the Worker routes take over.
+- **Database:** D1 `susanta-me-db` · **Images:** Workers KV `susanta-me-media` (switch to R2 later if you want — see wrangler.toml)
+- **Redeploy after changes:** `npm run deploy` (site) · `cd domain-worker && npx wrangler deploy` (only if the Worker changes)
+- **Change admin password:** `npx wrangler pages secret put ADMIN_PASSWORD --project-name susanta-me`, then `npm run deploy`
+
+## First-time deploy (from scratch)
 
 ```bash
 npm install

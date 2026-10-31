@@ -8,7 +8,7 @@
     "dev": "npm run build && wrangler pages dev",
     "db:migrate:local": "wrangler d1 migrations apply susanta-me-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply susanta-me-db --remote",
-    "deploy": "npm run build && wrangler pages deploy"
+    "deploy": "npm run build && wrangler pages deploy public --project-name susanta-me --branch main"
   },
   "devDependencies": {
     "wrangler": "^4.128.0"

@@ -1,4 +1,5 @@
 import { json, error } from '../../_lib/http.js';
+import { mediaStore } from '../../_lib/media.js';
 
 const TYPES = {
   png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp',
@@ -7,7 +8,8 @@ const TYPES = {
 const MAX_BYTES = 5 * 1024 * 1024;
 
 export async function onRequestPost({ request, env }) {
-  if (!env.MEDIA) return error('Image storage is not enabled yet. Turn on R2 in the Cloudflare dashboard, then images can be uploaded.', 503);
+  const MEDIA = mediaStore(env);
+  if (!MEDIA) return error('Image storage is not set up.', 503);
   let form;
   try {
     form = await request.formData();
@@ -22,7 +24,7 @@ export async function onRequestPost({ request, env }) {
 
   const base = file.name.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'image';
   const key = `${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 6)}-${base}.${ext === 'jpeg' ? 'jpg' : ext}`;
-  await env.MEDIA.put(key, file.stream(), {
+  await MEDIA.put(key, file.stream(), {
     httpMetadata: { contentType: TYPES[ext] },
     customMetadata: { originalName: file.name.slice(0, 200) },
   });

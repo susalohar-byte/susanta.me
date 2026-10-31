@@ -1,8 +1,10 @@
-// Serves uploaded images from R2.
+// Serves uploaded images (R2 or KV, see _lib/media.js).
+import { mediaStore } from '../_lib/media.js';
 export async function onRequestGet({ params, env }) {
   const key = String(params.key);
-  if (!env.MEDIA || !/^[a-z0-9][a-z0-9.\-]*$/.test(key)) return new Response('Not found', { status: 404 });
-  const obj = await env.MEDIA.get(key);
+  const MEDIA = mediaStore(env);
+  if (!MEDIA || !/^[a-z0-9][a-z0-9.\-]*$/.test(key)) return new Response('Not found', { status: 404 });
+  const obj = await MEDIA.get(key);
   if (!obj) return new Response('Not found', { status: 404 });
   const headers = new Headers();
   obj.writeHttpMetadata(headers);

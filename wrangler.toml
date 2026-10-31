@@ -12,7 +12,8 @@ migrations_dir = "migrations"
 
 # R2 bucket for uploaded images (logo, hero, blog covers, portfolio).
 # Create with: npx wrangler r2 bucket create susanta-me-media
-# Enable after turning on R2 in the dashboard and running: npx wrangler r2 bucket create susanta-me-media
+# Uploaded images are stored in Workers KV (below). To use R2 instead, enable R2 in the dashboard,
+# run: npx wrangler r2 bucket create susanta-me-media — and uncomment this block.
 # [[r2_buckets]]
 # binding = "MEDIA"
 # bucket_name = "susanta-me-media"
@@ -20,3 +21,7 @@ migrations_dir = "migrations"
 # Secrets (set in the Cloudflare dashboard or with `npx wrangler pages secret put NAME`):
 #   ADMIN_PASSWORD  – password for /admin
 #   SESSION_SECRET  – long random string used to sign the admin session cookie
+
+[[kv_namespaces]]
+binding = "MEDIA_KV"
+id = "98c342693ef9472a8a39edde36488f3e"
