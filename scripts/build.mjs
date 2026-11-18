@@ -175,7 +175,7 @@ function home() {
 `;
   return page({
     path: '/',
-    head: { title: 'Sushanta Digital | Lead Generation & Websites for Local Businesses', description: 'Get more customers with lead generation, WhatsApp automation, Meta ads and fast websites for local businesses in Purulia, West Bengal & across India. Plans from ₹6,999. Free consultation.', preload: S.hero_image },
+    head: { title: 'Sushanta Digital | Lead Generation & Websites for Local Businesses', description: 'Get more customers with lead generation, WhatsApp automation, Meta ads, AI videos and fast websites for local businesses in Purulia, West Bengal & across India. Plans from ₹6,999. Free consultation.', preload: S.hero_image },
     body, modal: true,
   });
 }
