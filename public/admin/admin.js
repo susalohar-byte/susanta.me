@@ -39,6 +39,7 @@ const SETTINGS_GROUPS = [
       { key: 'phone_display', label: 'Phone (as displayed)', type: 'text', placeholder: '+91 95477 71118' },
       { key: 'email', label: 'Email', type: 'email', placeholder: 'hello@example.com' },
       { key: 'location', label: 'Location', type: 'text', placeholder: 'Manbazar, Purulia, West Bengal' },
+      { key: 'gbp_url', label: 'Google Maps / Business Profile link', type: 'url', placeholder: 'https://maps.app.goo.gl/…', help: 'Your listing link from Google Maps (Share → Copy link). Tells Google your website and Maps listing are the same business.' },
     ],
   },
   {

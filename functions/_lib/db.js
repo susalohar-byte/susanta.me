@@ -5,7 +5,7 @@ export const SETTING_KEYS = [
   'logo', 'logo_white', 'favicon',
   'hero_image', 'hero_note', 'hero_title', 'hero_subtitle',
   'whatsapp', 'phone_display', 'email', 'location',
-  'instagram', 'facebook', 'linkedin', 'youtube',
+  'instagram', 'facebook', 'linkedin', 'youtube', 'gbp_url',
   'stat_1_value', 'stat_1_label', 'stat_2_value', 'stat_2_label',
   'stat_3_value', 'stat_3_label', 'stat_4_value', 'stat_4_label',
   'og_image',

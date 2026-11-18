@@ -98,9 +98,10 @@ export async function onRequest({ request, env, next }) {
       // Social profiles from /admin → sameAs on the business and founder, so AI and search link them to this site.
       async element(el) {
         const s = await settings();
-        const links = ['instagram', 'facebook', 'linkedin', 'youtube'].map((k) => s[k]).filter((v) => v && /^https:\/\/[^\s"'<>]+$/.test(v));
+        const ok = (v) => v && /^https:\/\/[^\s"'<>]+$/.test(v);
+        const links = ['instagram', 'facebook', 'linkedin', 'youtube', 'gbp_url'].map((k) => s[k]).filter(ok);
         if (!links.length) return el.remove();
-        const graph = [{ '@id': `${SITE}/#business`, sameAs: links }];
+        const graph = [{ '@id': `${SITE}/#business`, sameAs: links, ...(ok(s.gbp_url) ? { hasMap: s.gbp_url } : {}) }];
         if (s.linkedin && links.includes(s.linkedin)) graph.push({ '@id': `${SITE}/#sushanta`, sameAs: [s.linkedin] });
         el.setInnerContent(JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c'), { html: true });
       },
