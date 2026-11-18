@@ -4,6 +4,16 @@
 export const esc = (v) =>
   String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+// Mostly-Bengali text → lang="bn", so search engines and screen readers read it as Bengali.
+const BN = /[\u0980-\u09FF]/g;
+export const isBengali = (t) => {
+  const bn = (String(t ?? '').match(BN) || []).length;
+  return bn > 0 && bn >= (String(t).match(/[A-Za-z]/g) || []).length;
+};
+const LANG_TAGS = 'p|li|h[1-6]|span|blockquote|td|th|dd|dt|figcaption|summary|label|small|b|strong|em|a|button|div';
+export const markLang = (html) => String(html).replace(new RegExp(`<(${LANG_TAGS})(\\s[^>]*)?>([^<]+)`, 'g'),
+  (m, tag, attrs = '', text) => (!/\slang=/.test(attrs) && isBengali(text) ? `<${tag}${attrs} lang="bn">${text}` : m));
+
 export const slugify = (s) =>
   String(s ?? '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/&/g, ' and ')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
@@ -258,4 +268,112 @@ export function faqSchemaJson(items, variant = 'page') {
     '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: list.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: String(f.answer).replace(/\*\*/g, '') } })),
   }).replace(/</g, '\\u003c');
+}
+
+/* ---------- Services ---------- */
+export const SERVICE_TONES = ['lime', 'navy', 'white', 'butter'];
+
+// Illustrations for the service page. "image" (uploaded in /admin) takes priority over these.
+export const SERVICE_VISUALS = {
+  funnel: `
+              <div class="mock">
+                <div class="mock__title">This month's leads <span>LIVE</span></div>
+                <div class="funnel-row"><div class="funnel-bar" style="--w: 92%;">Ad &amp; Google visitors</div><span class="funnel-num">2,140</span></div>
+                <div class="funnel-row"><div class="funnel-bar" style="--w: 68%;">Landing page</div><span class="funnel-num">612</span></div>
+                <div class="funnel-row"><div class="funnel-bar" style="--w: 46%;">WhatsApp leads</div><span class="funnel-num">148</span></div>
+                <div class="funnel-row"><div class="funnel-bar" style="--w: 28%;">Customers</div><span class="funnel-num">41</span></div>
+              </div>`,
+  chat: `
+              <div class="mock wa-mock">
+                <div class="wa-mock__head"><i></i> SmileCare Dental</div>
+                <div class="chat">
+                  <div class="bubble bubble--out">Hi, is a checkup available tomorrow?<small>10:42 pm</small></div>
+                  <div class="bubble bubble--in">Hello! 👋 Yes — pick a slot and we'll confirm right away.<small>10:42 pm</small></div>
+                  <div class="wa-btns"><span>10:30 AM</span><span>5:00 PM</span><span>Price list</span><span>Call me</span></div>
+                </div>
+              </div>`,
+  ad: `
+              <div class="mock">
+                <div class="mock__title">Aura Salon &amp; Spa <span>Sponsored</span></div>
+                <div>✨ Weekend glow-up offer for Salt Lake — 20% off facials this Saturday only.</div>
+                <div class="ad-img" role="img" aria-label="Salon ad preview"></div>
+                <div class="ad-meta"><span>📍 Within 5 km · 25–45 yrs</span><span class="ad-btn">Send Message</span></div>
+              </div>`,
+  web: `
+              <div class="mock">
+                <div class="browser-dots"><i></i><i></i><i></i></div>
+                <div class="browser-shot"><img src="/assets/portfolio/mockup_coaching.png" alt="Coaching centre website built by Sushanta Digital" width="972" height="598" loading="lazy"></div>
+                <div class="scores"><div>98<small>Performance</small></div><div>100<small>SEO</small></div><div>&lt;1.5s<small>Load time</small></div></div>
+              </div>`,
+  promo: `
+              <div class="mock">
+                <div class="mock__title">Festive campaign <span>LOCAL</span></div>
+                <div class="promo-poster"><small>Manbazar · This weekend</small><b>20% OFF</b><span>Festive offer on everything</span></div>
+                <div class="promo-row"><span class="promo-chip">🤝 2 local creators</span><span class="promo-chip">📣 Social + WhatsApp</span></div>
+                <div class="ad-meta"><span>📍 Reaching people nearby</span><span class="ad-btn">Claim offer</span></div>
+              </div>`,
+  video: `
+              <div class="mock">
+                <div class="mock__title">Your AI video <span>READY</span></div>
+                <div class="vid-thumb" role="img" aria-label="AI video preview"><span class="vid-cap">Weekend offer — 20% off!</span><i class="vid-play" aria-hidden="true"></i><span class="vid-time">0:45</span></div>
+                <div class="promo-row"><span class="promo-chip">🎙️ Bengali voiceover</span><span class="promo-chip">💬 Captions</span><span class="promo-chip">📱 9:16 Reel</span></div>
+                <div class="ad-meta"><span>⏱ Ready in 2–3 days</span><span class="ad-btn">Post now</span></div>
+              </div>`,
+};
+export const SERVICE_VISUAL_OPTIONS = [['none', 'No illustration'], ['funnel', 'Lead funnel'], ['chat', 'WhatsApp chat'], ['ad', 'Facebook / Instagram ad'], ['web', 'Website preview'], ['promo', 'Local promotion poster'], ['video', 'AI video preview']];
+
+const TINTS = { lime: 'tint-0', butter: 'tint-1', white: 'tint-2', navy: 'tint-3' };
+export const serviceTint = (s) => TINTS[s.tone] || 'tint-0';
+
+export function serviceVisualHtml(s) {
+  if (s.image) return `<img class="svc-page__img" src="${esc(s.image)}" alt="${esc(s.name)}" loading="lazy">`;
+  return SERVICE_VISUALS[s.visual] || '';
+}
+
+// Sample videos on a service page: YouTube links are embedded, anything else plays as a video file.
+const youTubeId = (url) => (String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/) || [])[1];
+export function serviceVideosHtml(videos) {
+  return (Array.isArray(videos) ? videos : []).filter((v) => v && v.url).map((v) => {
+    const yt = youTubeId(v.url);
+    const title = v.title || 'Sample video';
+    const media = yt
+      ? `<iframe src="https://www.youtube-nocookie.com/embed/${yt}" title="${esc(title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`
+      : `<video controls playsinline preload="none"${v.poster ? ` poster="${esc(v.poster)}"` : ''}><source src="${esc(v.url)}" type="video/mp4">Your browser can't play this video.</video>`;
+    return `
+          <figure class="vid-card${yt && !/shorts\//.test(v.url) ? ' vid-card--wide' : ''} reveal">
+            <div class="vid-card__media">${media}</div>
+            ${v.title ? `<figcaption>${esc(v.title)}</figcaption>` : ''}
+          </figure>`;
+  }).join('');
+}
+
+function serviceIcon(s) {
+  if (s.icon) return `<img src="${esc(s.icon)}" alt="" width="30" height="30">`;
+  if (/whatsapp/i.test(`${s.slug} ${s.name}`)) {
+    return '<svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.36-.18-2.128-1.05-2.458-1.17-.33-.12-.57-.18-.81.18-.24.36-.93 1.17-1.14 1.41-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.08-.96-1.81-2.15-2.02-2.51-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.29-.7-.59-.6-.81-.61h-.69c-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.54 3.88 6.16 5.45.86.37 1.53.6 2.06.77.87.28 1.66.24 2.29.15.7-.1 2.16-.88 2.46-1.73.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42zM12.044 21.782a9.87 9.87 0 0 1-4.77-1.3l-.33-.2-3.75.98 1-3.65-.22-.35a9.86 9.86 0 0 1-1.51-5.27c0-5.23 4.25-9.48 9.49-9.48 2.54 0 4.93.99 6.73 2.79a9.43 9.43 0 0 1 2.79 6.73c-.01 5.19-4.29 9.41-9.43 9.41z"/></svg>';
+  }
+  return `<b class="svc4__letter" aria-hidden="true">${esc(String(s.name || '?').trim()[0] || '?')}</b>`;
+}
+
+const serviceCard = (s, i) => {
+  const tone = SERVICE_TONES.includes(s.tone) ? s.tone : 'white';
+  const tags = parseList(s.tags);
+  return `
+          <a href="/services/${esc(s.slug)}" class="svc4__card svc4__card--${tone} reveal">
+            ${s.sticker ? `<span class="stk svc4__stk">${esc(s.sticker)}</span>` : ''}
+            <span class="svc4__icon">${serviceIcon(s)}</span>
+            <span class="svc4__num">${String(s._n || i + 1).padStart(2, '0')}</span>
+            <h3>${esc(s.name)}</h3>
+            <p>${esc(s.summary)}</p>
+            ${tags.length ? `<span class="svc4__tags">${tags.map((t) => `<span>${esc(t)}</span>`).join('')}</span>` : ''}
+            <span class="svc4__cta">${esc(s.card_cta || 'Learn more')} <span class="arr">&rarr;</span></span>
+          </a>`;
+};
+
+// variant "home": the 4-card grid on the homepage (services ticked "show on homepage").
+// variant "page": every published service on /services.
+export function servicesHtml(items, variant = 'page') {
+  const list = variant === 'home' ? items.filter((s) => Number(s.show_on_home)).slice(0, 4) : items;
+  if (!list.length) return '<p class="empty">Services coming soon.</p>';
+  return list.map(serviceCard).join('');
 }

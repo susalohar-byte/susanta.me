@@ -1,5 +1,5 @@
 // D1 access for settings and the three content tables.
-import { slugify } from './templates.js';
+import { slugify, SERVICE_TONES, SERVICE_VISUALS } from './templates.js';
 
 export const SETTING_KEYS = [
   'logo', 'logo_white', 'favicon',
@@ -32,6 +32,12 @@ export async function saveSettings(env, settings) {
 
 const int = (v, d = 0) => (Number.isFinite(Number(v)) ? Math.trunc(Number(v)) : d);
 const str = (v, max = 5000) => String(v ?? '').trim().slice(0, max);
+const lines = (v) => (Array.isArray(v) ? v : String(v ?? '').split('\n'));
+// Sample videos: "Title | video link | cover image" per line, or { title, url, poster } objects.
+const parseVideo = (x) => {
+  const [title = '', url = '', poster = ''] = x && typeof x === 'object' ? [x.title, x.url, x.poster] : String(x ?? '').split('|');
+  return { title: str(title, 120), url: str(url, 500), poster: str(poster, 500) };
+};
 const bool = (v) => (v === true || v === 1 || v === '1' || v === 'true' ? 1 : 0);
 
 // Per-table column definitions: name → normaliser.
@@ -98,6 +104,35 @@ export const TABLES = {
     },
     required: ['question', 'answer'],
   },
+  services: {
+    order: 'sort ASC, id ASC',
+    cols: {
+      slug: (v, row) => slugify(v || row.name),
+      name: (v) => str(v, 120),
+      tagline: (v) => str(v, 200),
+      summary: (v) => str(v, 400),
+      seo_description: (v) => str(v, 300),
+      sticker: (v) => str(v, 40),
+      icon: (v) => str(v, 500),
+      tone: (v) => (SERVICE_TONES.includes(v) ? v : 'white'),
+      tags: (v) => JSON.stringify(lines(v).map((t) => str(t, 40)).filter(Boolean).slice(0, 6)),
+      card_cta: (v) => str(v, 40),
+      intro: (v) => str(v, 2000),
+      visual: (v) => (v in SERVICE_VISUALS ? v : 'none'),
+      image: (v) => str(v, 500),
+      note: (v) => str(v, 40),
+      features: (v) => JSON.stringify(lines(v).map((t) => str(t, 200)).filter(Boolean).slice(0, 15)),
+      ideal_for: (v) => JSON.stringify(lines(v).map((t) => str(t, 200)).filter(Boolean).slice(0, 15)),
+      content: (v) => str(v, 50000),
+      videos: (v) => JSON.stringify(lines(v).map(parseVideo).filter((x) => /^(https?:\/\/|\/)/i.test(x.url)).slice(0, 12)),
+      cta: (v) => str(v, 60),
+      show_on_home: bool,
+      sort: (v) => int(v),
+      published: bool,
+    },
+    required: ['name'],
+    touch: true,
+  },
   posts: {
     order: 'published_at DESC, id DESC',
     cols: {
@@ -115,7 +150,7 @@ export const TABLES = {
   },
 };
 
-const JSON_COLS = { projects: ['metrics'], plans: ['features'] };
+const JSON_COLS = { projects: ['metrics'], plans: ['features'], services: ['tags', 'features', 'ideal_for', 'videos'] };
 const decode = (table, row) => {
   for (const col of (row && JSON_COLS[table]) || []) {
     try { row[col] = JSON.parse(row[col] || '[]'); } catch { row[col] = []; }
@@ -135,6 +170,10 @@ export async function listRows(env, table, { publishedOnly = false, limit } = {}
 
 export async function getRow(env, table, id) {
   return decode(table, await env.DB.prepare(`SELECT * FROM ${table} WHERE id = ?`).bind(id).first());
+}
+
+export async function getServiceBySlug(env, slug) {
+  return decode('services', await env.DB.prepare('SELECT * FROM services WHERE slug = ? AND published = 1').bind(slug).first());
 }
 
 export async function getPostBySlug(env, slug) {

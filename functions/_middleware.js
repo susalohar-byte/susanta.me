@@ -1,6 +1,6 @@
 // Fills static pages with live content from /admin (D1) before they reach the visitor.
 import { getSettings, listRows } from './_lib/db.js';
-import { titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, faqSchemaJson } from './_lib/templates.js';
+import { titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, servicesHtml, faqSchemaJson, markLang, isBengali } from './_lib/templates.js';
 import { SITE } from './_lib/layout.js';
 
 const SAFE_URL = /^(\/(?!\/)|https:\/\/)[^\s"'<>]*$/;
@@ -48,13 +48,16 @@ export async function onRequest({ request, env, next }) {
     .on('[data-cms-text]', {
       async element(el) {
         const v = (await settings())[el.getAttribute('data-cms-text')];
-        if (v) el.setInnerContent(v);
+        if (!v) return;
+        el.setInnerContent(v);
+        if (isBengali(v)) el.setAttribute('lang', 'bn');
+        else if (el.getAttribute('lang') === 'bn') el.removeAttribute('lang');
       },
     })
     .on('[data-cms-title]', {
       async element(el) {
         const v = (await settings())[el.getAttribute('data-cms-title')];
-        if (v) el.setInnerContent(titleHtml(v), { html: true });
+        if (v) el.setInnerContent(markLang(titleHtml(v)), { html: true });
       },
     })
     .on('[data-cms-href]', {
@@ -91,6 +94,17 @@ export async function onRequest({ request, env, next }) {
         if (n && /^\d{8,15}$/.test(n)) el.setAttribute('href', el.getAttribute('href').replace(/wa\.me\/\d+/, `wa.me/${n}`));
       },
     })
+    .on('script[data-cms-sameas]', {
+      // Social profiles from /admin → sameAs on the business and founder, so AI and search link them to this site.
+      async element(el) {
+        const s = await settings();
+        const links = ['instagram', 'facebook', 'linkedin', 'youtube'].map((k) => s[k]).filter((v) => v && /^https:\/\/[^\s"'<>]+$/.test(v));
+        if (!links.length) return el.remove();
+        const graph = [{ '@id': `${SITE}/#business`, sameAs: links }];
+        if (s.linkedin && links.includes(s.linkedin)) graph.push({ '@id': `${SITE}/#sushanta`, sameAs: [s.linkedin] });
+        el.setInnerContent(JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c'), { html: true });
+      },
+    })
     .on('script[data-cms-faq-schema]', {
       async element(el) {
         const rows = await list('faqs');
@@ -116,11 +130,14 @@ export async function onRequest({ request, env, next }) {
         } else if (kind === 'plans') {
           const rows = await list('plans');
           if (rows) html = plansHtml(rows, variant);
+        } else if (kind === 'services') {
+          const rows = await list('services');
+          if (rows) html = servicesHtml(rows, variant);
         } else if (kind === 'faqs') {
           const rows = await list('faqs');
           if (rows) html = faqsHtml(rows, variant);
         }
-        if (html !== null) el.setInnerContent(html, { html: true });
+        if (html !== null) el.setInnerContent(markLang(html), { html: true });
       },
     });
 

@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { page, head, header, form, TAIL, waIcon, waLink, SITE } from '../functions/_lib/layout.js';
-import { esc, slugify, titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, faqSchemaJson } from '../functions/_lib/templates.js';
+import { esc, slugify, titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, faqSchemaJson, servicesHtml } from '../functions/_lib/templates.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const C = JSON.parse(readFileSync(join(root, 'scripts/content.json'), 'utf8'));
@@ -42,14 +42,6 @@ const stats = () => `
         <div class="stats reveal">
           ${[1, 2, 3, 4].map((n) => `<div class="stat"><strong data-count data-cms-text="stat_${n}_value">${esc(S[`stat_${n}_value`])}</strong><span data-cms-text="stat_${n}_label">${esc(S[`stat_${n}_label`])}</span></div>`).join('')}
         </div>`;
-const FUNNEL = `
-              <div class="mock">
-                <div class="mock__title">This month's leads <span>LIVE</span></div>
-                <div class="funnel-row"><div class="funnel-bar" style="--w: 92%;">Ad &amp; Google visitors</div><span class="funnel-num">2,140</span></div>
-                <div class="funnel-row"><div class="funnel-bar" style="--w: 68%;">Landing page</div><span class="funnel-num">612</span></div>
-                <div class="funnel-row"><div class="funnel-bar" style="--w: 46%;">WhatsApp leads</div><span class="funnel-num">148</span></div>
-                <div class="funnel-row"><div class="funnel-bar" style="--w: 28%;">Customers</div><span class="funnel-num">41</span></div>
-              </div>`;
 const toast = (title, sub) => `<div class="toast"><div class="toast__icon">${waIcon(20, '#128C7E')}</div><div><b>${title}</b><span>${sub}</span></div></div>`;
 const PLANS = () => C.plans.filter((p) => p.published);
 const proof = `
@@ -97,36 +89,16 @@ function home() {
         <div class="svc4__intro reveal">
           <span class="eyebrow">Services</span>
           <h2 class="h-section">Simple solutions. ${mark('Real growth.')}</h2>
-          <p class="lead">আপনার ব্যবসায় নতুন কাস্টমার আনতে যা যা লাগে — সব এক জায়গায়, একজন পার্টনারের কাছে।</p>
+          <p class="lead">Everything your business needs to bring in new customers — all in one place, with one partner.</p>
           <div class="svc4__ctas">
             <a href="#contact" class="btn btn--primary">${waIcon(18)} Get a Free Consultation <span class="arr">&rarr;</span></a>
             <a href="/services" class="link-arrow">All services &rarr;</a>
           </div>
           <div class="stk-row">${sticker('✨ All in one place', 'stk--white')}${sticker('🤝 One partner', 'stk--lime')}</div>
         </div>
-        <div class="svc4__grid">
-          ${[
-            ['lead-generation', 'Lead Generation', '<img src="/assets/icons/lead-gen.svg" alt="" width="30" height="30">', 'svc4__card--lime', '+3.2x leads',
-              'রোজ নতুন এনকোয়ারি — যারা সত্যিই কিনতে চায়। সব লিড ট্র্যাক করা।', ['Landing pages', 'Lead magnets', 'Google Sheets']],
-            ['whatsapp', 'WhatsApp Automation', waIcon(28, '#25D366'), 'svc4__card--navy', '0.5s reply',
-              'দিনরাত ২৪ ঘণ্টা অটো-রিপ্লাই, মেনু আর বুকিং — কোনো কাস্টমার মিস হবে না।', ['Auto-reply', 'Bookings', 'Follow-ups']],
-            ['meta-ads', 'Meta Ads', '<img src="/assets/icons/meta-ads.svg" alt="" width="30" height="30">', 'svc4__card--white', '5–15 km radius',
-              'আপনার দোকানের আশেপাশের কাস্টমারদের কাছে Facebook ও Instagram অ্যাড।', ['Local targeting', 'Ad creatives', 'Pixel tracking']],
-            ['web-dev', 'Websites & Apps', '<img src="/assets/icons/website-dev.svg" alt="" width="30" height="30">', 'svc4__card--butter', '<1.5s load',
-              'মোবাইলে চোখের পলকে খোলে, আর ভিজিটরকে সোজা কল বা WhatsApp-এ আনে।', ['Mobile-first', 'SEO ready', 'Booking forms']],
-          ].map(([id, t, icon, tone, stk, d, tags], i) => `
-          <a href="/services#${id}" class="svc4__card ${tone} reveal">
-            <span class="stk svc4__stk">${esc(stk)}</span>
-            <span class="svc4__icon">${icon}</span>
-            <span class="svc4__num">0${i + 1}</span>
-            <h3>${esc(t)}</h3>
-            <p>${d}</p>
-            <span class="svc4__tags">${tags.map((x) => `<span>${x}</span>`).join('')}</span>
-            <span class="svc4__go" aria-hidden="true">&rarr;</span>
-          </a>`).join('')}
-        </div>
+        ${list('services', servicesHtml(published(C.services), 'home'), 'home', 'svc4__grid')}
       </div>
-      <div class="container"><p class="svc4__extra reveal">Also: <a href="/services#seo">Local SEO &amp; Google Maps</a> · <a href="/services#speed">Speed Optimization</a> · <a href="/services#support">Ongoing Support</a></p></div>
+      <div class="container"><p class="svc4__extra reveal">Also: <a href="/services/meta-ads">Meta Ads</a> · <a href="/services#seo">Local SEO &amp; Google Maps</a> · <a href="/services#speed">Speed Optimization</a> · <a href="/services#support">Ongoing Support</a></p></div>
     </section>
 
     <section class="section section--flush-top"><div class="container">${stats()}</div></section>
@@ -134,7 +106,7 @@ function home() {
     <section class="section section--soft">
       <div class="container split">
         <div>
-          ${secHead({ eyebrow: 'Why work with me', title: `Built for local businesses. ${mark('Built to sell.')}`, lead: 'বেশিরভাগ এজেন্সি সুন্দর কিন্তু স্লো ওয়েবসাইট বানায়, যাতে ফোন একবারও বাজে না। আমি এমন সিস্টেম বানাই যা থেকে আসল এনকোয়ারি আসে।' }).replace('sec-head reveal', 'sec-head reveal" style="margin-bottom: 0')}
+          ${secHead({ eyebrow: 'Why work with me', title: `Built for local businesses. ${mark('Built to sell.')}`, lead: 'Most agencies build beautiful but slow websites that never make the phone ring. I build systems that bring in real enquiries.' }).replace('sec-head reveal', 'sec-head reveal" style="margin-bottom: 0')}
           <div class="stk-row reveal">
             ${sticker('⚡ Live in 7 days', 'stk--lime')}${sticker('📱 Mobile-first', 'stk--white')}${sticker('💬 WhatsApp-first', 'stk--navy')}${sticker('🤝 Direct 1-on-1', 'stk--peach')}
           </div>
@@ -150,13 +122,13 @@ function home() {
     </section>
 
     <section class="section" id="work">
-      <div class="container">${secHead({ eyebrow: 'Recent work', title: `Real businesses. ${mark('Real results.')}`, lead: 'এডুকেশন প্ল্যাটফর্ম থেকে AI টুল — আমার বানানো কিছু আসল প্রজেক্ট, নিজেই দেখুন।', extra: '<a href="/work" class="btn btn--ghost btn--sm">All case studies <span class="arr">&rarr;</span></a>' })}
+      <div class="container">${secHead({ eyebrow: 'Recent work', title: `Real businesses. ${mark('Real results.')}`, lead: 'From education platforms to AI tools — a few real projects I’ve built. See for yourself.', extra: '<a href="/work" class="btn btn--ghost btn--sm">All case studies <span class="arr">&rarr;</span></a>' })}
         ${list('projects', projectsHtml(published(C.projects), 'bento'), 'bento')}
       </div>
     </section>
 
     <section class="section section--navy on-dark" id="process">
-      <div class="container">${secHead({ eyebrow: 'How it works', title: `From idea to enquiries in ${mark('7 days')}`, lead: 'কোনো টেকনিক্যাল ঝামেলা নেই। ডিজাইন, লেখা, অটোমেশন আর হোস্টিং — সব আমি দেখি।', center: true })}
+      <div class="container">${secHead({ eyebrow: 'How it works', title: `From idea to enquiries in ${mark('7 days')}`, lead: 'No technical hassle. Design, copy, automation and hosting — I handle it all.', center: true })}
         <div class="steps">
           <div class="steps__line" aria-hidden="true"></div>
           ${[['01', '15 minutes', 'Free discovery', 'A quick WhatsApp or phone chat about your business, customers and goals.'],
@@ -177,7 +149,7 @@ function home() {
     </section>
 
     <section class="section section--soft" id="pricing">
-      <div class="container">${secHead({ eyebrow: 'Transparent pricing', title: `Simple plans that ${mark('pay for themselves')}`, lead: 'একবারের খরচ। মাসে মাসে কোনো লুকানো চার্জ নেই।', extra: '<a href="/pricing" class="btn btn--ghost btn--sm">All plans <span class="arr">&rarr;</span></a>' })}
+      <div class="container">${secHead({ eyebrow: 'Transparent pricing', title: `Simple plans that ${mark('pay for themselves')}`, lead: 'One-time cost. No hidden monthly charges.', extra: '<a href="/pricing" class="btn btn--ghost btn--sm">All plans <span class="arr">&rarr;</span></a>' })}
         ${list('plans', plansHtml(PLANS(), 'strip'), 'strip', 'price-strip')}
         <p class="price-strip__note reveal">${sticker('🛡️ 100% satisfaction guarantee', 'stk--white')} ${sticker('💸 50% now, rest after you approve', 'stk--white')}</p>
       </div>
@@ -211,86 +183,20 @@ function home() {
 /* =========================================================
    SERVICES — sticky side-nav with scroll-spy panels
    ========================================================= */
-const SVC_HEADLINES = {
-  'lead-generation': 'Stop waiting for walk-ins. Get enquiries every day.',
-  whatsapp: 'Answer every customer in seconds — even at midnight.',
-  'meta-ads': 'Ads that bring enquiries, not just likes.',
-  'web-dev': 'A fast website that works like your best salesperson.',
-};
 
 function services() {
-  const chat = `
-              <div class="mock wa-mock">
-                <div class="wa-mock__head"><i></i> SmileCare Dental</div>
-                <div class="chat">
-                  <div class="bubble bubble--out">Hi, is a checkup available tomorrow?<small>10:42 pm</small></div>
-                  <div class="bubble bubble--in">Hello! 👋 Yes — pick a slot and we'll confirm right away.<small>10:42 pm</small></div>
-                  <div class="wa-btns"><span>10:30 AM</span><span>5:00 PM</span><span>Price list</span><span>Call me</span></div>
-                </div>
-              </div>`;
-  const ad = `
-              <div class="mock">
-                <div class="mock__title">Aura Salon &amp; Spa <span>Sponsored</span></div>
-                <div>✨ Weekend glow-up offer for Salt Lake — 20% off facials this Saturday only.</div>
-                <div class="ad-img" role="img" aria-label="Salon ad preview"></div>
-                <div class="ad-meta"><span>📍 Within 5 km · 25–45 yrs</span><span class="ad-btn">Send Message</span></div>
-              </div>`;
-  const web = `
-              <div class="mock">
-                <div class="browser-dots"><i></i><i></i><i></i></div>
-                <div class="browser-shot"><img src="/assets/portfolio/mockup_coaching.png" alt="Coaching centre website built by Sushanta Digital" width="972" height="598" loading="lazy"></div>
-                <div class="scores"><div>98<small>Performance</small></div><div>100<small>SEO</small></div><div>&lt;1.5s<small>Load time</small></div></div>
-              </div>`;
-  const svc = [
-    ['lead-generation', '01', 'Lead Generation', 'tint-0', FUNNEL, 'Every lead tracked!', 'Stop waiting for walk-ins. Get enquiries every single day.',
-      'আপনার ব্যবসার জন্য পুরো একটা লিড সিস্টেম: একটা ফোকাসড ল্যান্ডিং পেজ, না বলতে না পারার মতো অফার, অ্যাড বা Google থেকে ভিজিটর, আর WhatsApp ফলো-আপ — যাতে কোনো এনকোয়ারি হাতছাড়া না হয়।',
-      ['High-converting landing page built around one offer', 'Lead magnets: free consult, price list, trial class', 'Every lead auto-saved to Google Sheets', 'Weekly report: leads, cost per lead, next steps'],
-      ['Coaching centres filling batches', 'Clinics wanting new patients', 'Any business with an empty calendar']],
-    ['whatsapp', '02', 'WhatsApp Automation', 'tint-1', chat, 'Replies in 0.5 sec', 'Answer every customer in seconds — even at midnight.',
-      'আমাদের কাস্টমাররা ফর্ম বা ইমেলের চেয়ে WhatsApp বেশি পছন্দ করে। আপনার WhatsApp Business নম্বরে স্মার্ট মেনু, ইনস্ট্যান্ট রিপ্লাই আর বুকিং — আপনি ঘুমোলেও লিড আসবে।',
-      ['Instant greeting with services, prices and timings', 'Slot booking and catalogue sharing', 'Automatic follow-ups for people who go quiet', 'Your team can take over any chat anytime'],
-      ['Businesses that miss calls', 'Owners answering the same questions daily', 'Anyone getting enquiries after hours']],
-    ['meta-ads', '03', 'Meta Ads (FB & IG)', 'tint-2', ad, 'Only nearby buyers', 'Ads that bring enquiries, not just likes.',
-      'আপনার পিনকোডের আশেপাশের মানুষদের টার্গেট করা ক্যাম্পেন — নজরকাড়া ডিজাইন আর লেখা, যা সোজা আপনার WhatsApp-এ নিয়ে আসে।',
-      ['Hyper-local targeting within 5–15 km', 'Ad creatives, reels and copywriting', 'Meta Pixel & Conversions API tracking', 'Budgets that work from ₹200–₹400/day'],
-      ['Salons and spas filling weekdays', 'Restaurants promoting offers', 'New businesses that need awareness fast']],
-    ['web-dev', '04', 'App & Website Development', 'tint-3', web, 'Loads in a flash', 'A fast website that works like your best salesperson.',
-      'পরিষ্কার, মোবাইল-ফার্স্ট ওয়েবসাইট আর সহজ ওয়েব অ্যাপ — ১.৫ সেকেন্ডে খোলে, Google-এ র‍্যাঙ্ক করে, আর প্রতিটা ভিজিটরকে কল বা WhatsApp-এর দিকে নিয়ে যায়।',
-      ['Custom design — no slow templates', '1-tap WhatsApp & call buttons everywhere', 'SEO-ready structure and Google Maps', 'Booking forms, catalogues, dashboards'],
-      ['Businesses with no website yet', 'Slow or outdated WordPress sites', 'Owners who need a simple web app']],
-  ];
   const body = `
     <section class="ph ph--navy on-dark">
       <div class="container">
         ${crumbs('Services')}
         <h1 class="ph__title">Services that bring you ${mark('customers')}</h1>
-        <p class="ph__lead">চারটে সার্ভিস, একটা সহজ সিস্টেম। যেটা দরকার বেছে নিন — অথবা আমি বলে দেব কোনটা সবচেয়ে তাড়াতাড়ি কাস্টমার আনবে।</p>
-        <div class="ph-tabs">
-          ${svc.map(([id, n, name, , , , sub]) => `<a class="ph-tab" href="#${id}"><small>${n}</small><b>${esc(name)}</b><span>${sub}</span></a>`).join('')}
-        </div>
+        <p class="ph__lead">One simple system — pick what you need, or I’ll tell you which one will bring in customers fastest. Click any service to see the full details.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container svc">
-        <nav class="svc__nav" aria-label="Services">
-          ${svc.map(([id, n, name], i) => `<a href="#${id}"${i === 0 ? ' class="active"' : ''}><span>${n}</span>${esc(name)}</a>`).join('')}
-          <a href="#contact" class="btn btn--primary" style="justify-content: center; color: var(--ink); background: var(--primary);">Get a free plan &rarr;</a>
-        </nav>
-        <div>
-          ${svc.map(([id, n, name, tint, vis, note, title, p, gets, fit]) => `
-          <article class="svc__panel" id="${id}">
-            <div class="svc__visual ${tint} reveal-scale">${vis}<span class="doodle">${note}</span></div>
-            <span class="eyebrow eyebrow--outline">${n} — ${esc(name)}</span>
-            <h2>${SVC_HEADLINES[id]}</h2>
-            <p>${p}</p>
-            <div class="svc__cols">
-              <div><h3>What you get</h3><ul class="ticks">${gets.map((g) => `<li>${esc(g)}</li>`).join('')}</ul></div>
-              <div><h3>Perfect for</h3><ul class="ticks">${fit.map((g) => `<li>${esc(g)}</li>`).join('')}</ul></div>
-            </div>
-            <a href="#contact" class="btn btn--dark" data-service="${esc(name)}">Get ${esc(name)} for my business <span class="arr">&rarr;</span></a>
-          </article>`).join('')}
-        </div>
+      <div class="container">
+        ${list('services', servicesHtml(published(C.services)), 'page', 'svc-index')}
       </div>
     </section>
 
@@ -306,7 +212,7 @@ function services() {
     </section>
 
     <section class="section">
-      <div class="container">${secHead({ eyebrow: 'Who we help', title: `Made for local ${mark('businesses')}`, lead: 'কাস্টমার যদি আপনাকে কাছাকাছি খোঁজে আর কেনার আগে কথা বলে — তাহলে এই সিস্টেম আপনার জন্যই।' })}
+      <div class="container">${secHead({ eyebrow: 'Who we help', title: `Made for local ${mark('businesses')}`, lead: 'If customers look for you nearby and like to talk before they buy — this system is made for you.' })}
         <div class="industries">
           ${[['🎓', 'Coaching & Tuition'], ['🦷', 'Clinics & Doctors'], ['💇', 'Salons & Spas'], ['✈️', 'Travel Agencies'], ['🍽️', 'Restaurants & Cafés'], ['🏠', 'Real Estate'], ['🛍️', 'Retail Shops'], ['🏋️', 'Gyms & Fitness'], ['⚖️', 'Professional Services']]
             .map(([e, t]) => `<div class="industry reveal"><b>${e}</b>${esc(t)}</div>`).join('')}
@@ -320,7 +226,7 @@ ${ctaBand('Not sure which service you need?', "Tell me about your business in a 
       title: 'Services: Lead Generation, WhatsApp Automation & Meta Ads | Sushanta Digital',
       description: 'Lead generation, WhatsApp automation, Facebook & Instagram ads and fast websites for local businesses in Purulia, West Bengal and across India. Get a free growth plan.',
       crumb: [['Services', '/services']],
-      schema: [{ '@type': 'OfferCatalog', name: 'Sushanta Digital Services', itemListElement: ['Lead Generation', 'WhatsApp Automation', 'Meta Ads Management', 'Website & App Development', 'Local SEO & Google Business Profile', 'Website Maintenance']
+      schema: [{ '@type': 'OfferCatalog', name: 'Sushanta Digital Services', itemListElement: ['Lead Generation', 'WhatsApp Automation', 'Local Business Promotion', 'Meta Ads Management', 'Website & App Development', 'Local SEO & Google Business Profile', 'Website Maintenance']
         .map((n) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n, provider: { '@id': `${SITE}/#business` }, areaServed: 'IN' } })) }],
     },
     body,
@@ -343,7 +249,7 @@ function work() {
             <div><strong data-count>7</strong><span>Days to launch</span></div>
           </div>
         </div>
-        <p class="ph__lead">এডুকেশন প্ল্যাটফর্ম, এক্সাম প্রিপারেশন আর AI টুল — আমার বানানো আসল প্রজেক্টগুলো দেখুন। যেকোনো ছবিতে ট্যাপ করে প্রিভিউ দেখুন।</p>
+        <p class="ph__lead">Education platforms, exam preparation and AI tools — see the real projects I’ve built. Tap any image to see a preview.</p>
       </div>
     </section>
 
@@ -378,7 +284,7 @@ function pricing() {
         ${crumbs('Pricing')}
         <h1 class="ph__title" style="margin: 0 auto;">Plans that ${mark('pay for themselves')}</h1>
         <div class="stk-row" style="justify-content: center; margin-top: 22px;">${sticker('🙌 No hidden fees', 'stk--lime')}${sticker('⚡ Live in 7 days', 'stk--white')}</div>
-        <p class="ph__lead" style="margin-left: auto; margin-right: auto;">লোকাল ব্যবসার বাজেটের কথা ভেবে বানানো এককালীন প্যাকেজ। শুরুতে ৫০%, আর বাকি ৫০% ডিজাইন পছন্দ হওয়ার পরে।</p>
+        <p class="ph__lead" style="margin-left: auto; margin-right: auto;">One-time packages designed around local business budgets. 50% upfront, and the remaining 50% once you love the design.</p>
       </div>
     </section>
 
@@ -390,7 +296,7 @@ function pricing() {
     </section>
 
     <section class="section section--soft">
-      <div class="container">${secHead({ eyebrow: 'Worth it?', title: `What could more leads be ${mark('worth')}?`, lead: 'স্লাইডার সরিয়ে দেখুন, মাসে কয়েকজন বেশি কাস্টমার মানে আপনার ব্যবসার জন্য কতটা।', center: true })}
+      <div class="container">${secHead({ eyebrow: 'Worth it?', title: `What could more leads be ${mark('worth')}?`, lead: 'Move the slider to see what a few extra customers a month could mean for your business.', center: true })}
         <div class="roi reveal" id="roi">
           <div class="roi__inputs">
             ${range('roiLeads', 'leads', 'Extra enquiries per month', 10, 300, 5, 60)}
@@ -419,7 +325,7 @@ function pricing() {
     </section>
 
     <section class="section section--flush-top">
-      <div class="container">${secHead({ eyebrow: 'Monthly add-ons', title: `Keep the ${mark('leads coming')}`, lead: 'সিস্টেম লাইভ হওয়ার পরে চাইলে নিতে পারেন — আপনার লক্ষ্য আর বাজেট বুঝে দাম।' })}
+      <div class="container">${secHead({ eyebrow: 'Monthly add-ons', title: `Keep the ${mark('leads coming')}`, lead: 'Add these once your system is live, if you like — priced around your goals and budget.' })}
         <div class="cards-3">
           ${[['🎯', 'Lead Generation Retainer', 'Monthly campaigns, landing page tests and a weekly lead report for businesses that want enquiries every day.'],
             ['📣', 'Meta Ads Management', 'Ongoing Facebook & Instagram management with fresh creatives monthly. Ad budget paid directly to Meta.'],
@@ -462,7 +368,7 @@ function about() {
         <div>
           ${crumbs('About')}
           <h1 class="ph__title">Your digital partner. ${mark('No fluff.')}</h1>
-          <p class="ph__lead">আমি Sushanta Lohar, পুরুলিয়ার মানবাজারের একজন গ্রোথ স্ট্র্যাটেজিস্ট। সহজ সিস্টেম, সৎ পরামর্শ আর সরাসরি ১-অন-১ সাপোর্ট দিয়ে লোকাল ব্যবসার মালিকদের অনলাইনে বেশি কাস্টমার পেতে সাহায্য করি।</p>
+          <p class="ph__lead">I’m Sushanta Lohar, a growth strategist from Manbazar, Purulia. I help local business owners get more customers online with simple systems, honest advice and direct 1-on-1 support.</p>
           <div class="ph-stats" style="margin-top: 34px;">
             <div><strong data-count>50+</strong><span>Projects shipped</span></div>
             <div><strong data-count>7</strong><span>Days avg. launch</span></div>
@@ -484,8 +390,8 @@ function about() {
         <div class="reveal">
           <span class="eyebrow">My story</span>
           <h2 class="h-section">Why I started ${mark('Sushanta Digital')}</h2>
-          <p class="lead">বারবার এমন পরিশ্রমী মালিকদের সাথে দেখা হত — ডাক্তার, কোচিং ডিরেক্টর, স্যালন মালিক, ট্রাভেল এজেন্ট — যারা এজেন্সিকে ₹50,000+ দিয়ে এমন স্লো টেমপ্লেট ওয়েবসাইট বানিয়েছেন, যা থেকে একটা ফোনও আসেনি।</p>
-          <p class="lead">মানুষ স্লো ওয়েবসাইট পছন্দ করে না, আর WhatsApp-এ সাথে সাথে উত্তর পেতে ভালোবাসে। তাই দুটোর জন্যই বানাই: হালকা ওয়েবসাইট, WhatsApp ফানেল আর লোকাল অ্যাড — মাপকাঠি লাইক নয়, এনকোয়ারি।</p>
+          <p class="lead">I kept meeting hard-working owners — doctors, coaching directors, salon owners, travel agents — who had paid agencies ₹50,000+ for slow template websites that never brought in a single call.</p>
+          <p class="lead">People don’t like slow websites, and they love getting instant replies on WhatsApp. So I build for both: lightweight websites, WhatsApp funnels and local ads — measured in enquiries, not likes.</p>
         </div>
         <div class="panel panel--dark reveal">
           <h3>What working with me looks like</h3>
@@ -507,7 +413,7 @@ function about() {
     </section>
 
     <section class="section">
-      <div class="container">${secHead({ eyebrow: 'Toolkit', title: `Tools I use to ${mark('grow you')}`, lead: 'পরীক্ষিত, নির্ভরযোগ্য প্ল্যাটফর্ম — ঠিকঠাক সেটআপ করা, আর মালিকানা আপনার।', center: true })}
+      <div class="container">${secHead({ eyebrow: 'Toolkit', title: `Tools I use to ${mark('grow you')}`, lead: 'Proven, reliable platforms — set up properly, and owned by you.', center: true })}
         <div class="pill-row reveal">${['WhatsApp Business API', 'Meta Ads Manager', 'Google Business Profile', 'Google Search Console', 'Google Sheets automations', 'HTML / CSS / JS', 'Cloudflare', 'Meta Pixel & CAPI', 'Canva & Figma'].map((t) => `<span class="pill">${esc(t)}</span>`).join('')}</div>
       </div>
     </section>
@@ -539,7 +445,7 @@ function processPage() {
       <div class="container">
         ${crumbs('Process')}
         <h1 class="ph__title">From idea to enquiries in ${mark('7 days')}</h1>
-        <p class="ph__lead">অন্তহীন মিটিং নেই, টেকনিক্যাল মাথাব্যথা নেই। প্রথম কথা থেকে প্রথম কাস্টমার এনকোয়ারি পর্যন্ত ঠিক কী কী হয়, এখানে দেখুন।</p>
+        <p class="ph__lead">No endless meetings, no technical headaches. Here’s exactly what happens, from our first chat to your first customer enquiry.</p>
         <div class="ph-steps">${steps.map(([n, , t]) => `<span><b>${n}</b>${esc(t)}</span>`).join('')}</div>
       </div>
     </section>
@@ -594,7 +500,7 @@ function reviewsPage() {
         <div class="ph__row">
           <div>
             <h1 class="ph__title">Loved by ${mark('local businesses')}</h1>
-            <p class="ph__lead">ডাক্তার, কোচিং ডিরেক্টর, স্যালন মালিক, ট্রাভেল এজেন্ট আর দোকানদাররা বলছেন — Sushanta Digital-এর সাথে কাজের পরে কী বদলেছে।</p>
+            <p class="ph__lead">Doctors, coaching directors, salon owners, travel agents and shopkeepers share what changed after working with Sushanta Digital.</p>
           </div>
           <div class="rating-card reveal">
             <div><div class="big-num">4.9</div><div class="stars" style="font-size: 20px;">★★★★★</div><span style="font-size: 13px; color: rgba(255,255,255,.6);">Average rating</span></div>
@@ -632,7 +538,7 @@ function faq() {
       <div class="container">
         ${crumbs('FAQ')}
         <h1 class="ph__title">How can I ${mark('help?')}</h1>
-        <p class="ph__lead">ওয়েবসাইট, লিড জেনারেশন, WhatsApp অটোমেশন, অ্যাড, দাম আর সাপোর্ট — সব প্রশ্নের সহজ উত্তর এখানে খুঁজুন।</p>
+        <p class="ph__lead">Websites, lead generation, WhatsApp automation, ads, pricing and support — simple answers to every question, right here.</p>
         <div class="faq-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <label for="faqSearch" class="sr-only">Search questions</label>
@@ -665,7 +571,7 @@ function blog() {
       <div class="container" style="text-align: center;">
         ${sticker('📚 Free playbooks', 'stk--lime')}
         <h1 class="ph__title" style="margin: 22px auto 0;">The Growth ${mark('Journal')}</h1>
-        <p class="ph__lead" style="margin-left: auto; margin-right: auto;">লিড জেনারেশন, WhatsApp অটোমেশন, Meta Ads আর লোকাল SEO নিয়ে সহজ, কাজের গাইড — ৫ মিনিটে পড়ে আজই কাজে লাগান।</p>
+        <p class="ph__lead" style="margin-left: auto; margin-right: auto;">Simple, practical guides on lead generation, WhatsApp automation, Meta Ads and local SEO — read in 5 minutes, use today.</p>
       </div>
     </section>
 
@@ -681,7 +587,7 @@ function blog() {
           <div>
             <span class="stk stk--white">💌 New every month</span>
             <h2>Get new playbooks on WhatsApp</h2>
-            <p>নতুন গাইড বেরোলেই WhatsApp-এ পেয়ে যাবেন। কোনো স্প্যাম নয় — মাসে একবার।</p>
+            <p>Get new guides on WhatsApp as soon as they’re out. No spam — once a month.</p>
           </div>
           <a href="${waLink('Hi Sushanta! Please send me new growth playbooks on WhatsApp.')}" target="_blank" rel="noopener noreferrer" class="btn btn--dark">${waIcon(18)} Send me playbooks <span class="arr">&rarr;</span></a>
         </div>
@@ -710,7 +616,7 @@ function contact() {
         ${crumbs('Contact')}
         <span class="eyebrow eyebrow--light">Usually replies in 15 minutes</span>
         <h1>Let's discuss ${mark('your project')}</h1>
-        <p>আপনার ব্যবসার কথা বলুন। কীভাবে বেশি কাস্টমার পাবেন, আমি নিজে সবচেয়ে ভালো উপায়টা বলে দেব — সৎ আর পরিষ্কার দামে।</p>
+        <p>Tell me about your business. I’ll personally tell you the best way to get more customers — with honest, clear pricing.</p>
         <div class="channels">
           <a class="channel" href="${waLink("Hi Sushanta! I'd like to discuss my business.")}" target="_blank" rel="noopener noreferrer"><div class="icon-tile">${waIcon(22, '#25D366')}</div><div><b>WhatsApp</b><span data-cms-text="phone_display">${esc(S.phone_display)}</span></div></a>
           <a class="channel" href="tel:+${S.whatsapp}" data-cms-href="phone"><div class="icon-tile">📞</div><div><b>Call</b><span>Mon–Sat, 10am–8pm</span></div></a>

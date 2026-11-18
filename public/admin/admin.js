@@ -525,7 +525,7 @@ function closeDrawer() {
 const confirmLeave = () => !leaveGuard || !leaveGuard() || window.confirm('You have unsaved changes. Leave without saving?');
 
 const ROUTES = {
-  dashboard: viewDashboard, leads: viewLeads, settings: viewSettings, projects: viewProjects, plans: viewPlans, faqs: viewFaqs,
+  dashboard: viewDashboard, leads: viewLeads, settings: viewSettings, services: viewServices, projects: viewProjects, plans: viewPlans, faqs: viewFaqs,
   reviews: viewReviews, blog: viewBlog, media: viewMedia,
 };
 
@@ -1130,6 +1130,95 @@ function reviewForm(r) {
     validate: (d) => {
       if (!d.name) return { message: 'Please enter the client’s name.', el: name };
       if (!d.quote) return { message: 'Please enter the review text.', el: quote };
+      return null;
+    },
+  };
+}
+
+/* =========================================================================
+   Services
+   ========================================================================= */
+const SERVICE_TONES = [['white', 'White'], ['lime', 'Lime green'], ['navy', 'Dark navy'], ['butter', 'Soft yellow']];
+const SERVICE_VISUALS = [['none', 'No illustration'], ['funnel', 'Lead funnel'], ['chat', 'WhatsApp chat'], ['ad', 'Facebook / Instagram ad'], ['web', 'Website preview'], ['promo', 'Local promotion poster'], ['video', 'AI video preview']];
+
+function viewServices(main) {
+  crudPage(main, {
+    title: 'Services', subtitle: 'Each service gets its own page at /services/your-slug. Tick “Show on homepage” for up to 4 homepage cards.',
+    singular: 'service', endpoint: '/services', icon: '✦',
+    emptyTitle: 'No services yet', emptyText: 'Add your first service — name, short description and what’s included.',
+    defaults: { tone: 'white', visual: 'none', published: 1, show_on_home: 0, tags: [], features: [], ideal_for: [], videos: [] },
+    labelOf: (s) => (s.name ? `service ${s.name}` : 'this service'),
+    headers: ['Service', 'Page', 'Homepage', 'Published', 'Sort'],
+    columns: (s, { edit }) => [
+      { attrs: { class: 'title-cell' }, content: [h('strong', null, h('button', { type: 'button', class: 'btn-link', onclick: () => edit(s) }, s.name || 'Untitled')), h('span', null, truncate(s.summary, 90))] },
+      { content: s.slug ? h('a', { href: `/services/${s.slug}`, target: '_blank', rel: 'noopener', class: 'small' }, `/services/${s.slug} ↗`) : h('span', { class: 'muted' }, '—') },
+      { content: Number(s.show_on_home) ? h('span', { class: 'badge badge-live' }, 'Yes') : h('span', { class: 'muted' }, '—') },
+    ],
+    form: serviceForm,
+  });
+}
+
+function serviceForm(s) {
+  const list = (v) => (Array.isArray(v) ? v : []).join('\n');
+  const lines = (ta) => ta.value.split('\n').map((x) => x.trim()).filter(Boolean);
+  const name = h('input', { type: 'text', value: s.name || '', required: true, placeholder: 'e.g. Local Business Promotion' });
+  const slug = h('input', { type: 'text', value: s.slug || '', spellcheck: 'false', placeholder: 'auto-generated-from-name' });
+  bindSlug(name, slug, !s.slug);
+  const summary = h('textarea', { rows: 3, value: s.summary || '', placeholder: 'One or two lines shown on the service card.' });
+  const seoDesc = h('textarea', { rows: 2, value: s.seo_description || '', maxlength: 300, placeholder: 'One English sentence about this service, e.g. who it is for and where.' });
+  const sticker = h('input', { type: 'text', value: s.sticker || '', placeholder: 'e.g. 📍 Get noticed nearby', maxlength: 40 });
+  const tone = select(SERVICE_TONES, s.tone || 'white');
+  const icon = imageField({ label: 'Card icon', value: s.icon || '', help: 'Small square icon (SVG or PNG). Leave empty for a letter icon.' });
+  const tags = h('textarea', { rows: 3, value: list(s.tags), placeholder: 'One short tag per line (up to 6)' });
+  const cardCta = h('input', { type: 'text', value: s.card_cta || '', placeholder: 'Learn more', maxlength: 40 });
+  const tagline = h('input', { type: 'text', value: s.tagline || '', placeholder: 'e.g. Get noticed in your own area.' });
+  const intro = h('textarea', { rows: 4, value: s.intro || '', placeholder: 'A short paragraph under the page headline.' });
+  const visual = select(SERVICE_VISUALS, s.visual || 'none');
+  const image = imageField({ label: 'Page image (optional)', value: s.image || '', help: 'If you add an image it replaces the illustration.' });
+  const note = h('input', { type: 'text', value: s.note || '', placeholder: 'e.g. Every lead tracked!', maxlength: 40 });
+  const features = h('textarea', { rows: 6, value: list(s.features), placeholder: 'One item per line' });
+  const idealFor = h('textarea', { rows: 4, value: list(s.ideal_for), placeholder: 'One item per line' });
+  const content = h('textarea', { rows: 12, class: 'mono', value: s.content || '', placeholder: '## How it works\n\n1. **Step one** — …\n2. **Step two** — …' });
+  const videos = h('textarea', { rows: 4, class: 'mono', value: (Array.isArray(s.videos) ? s.videos : []).map((v) => [v.title, v.url, v.poster].filter((x, i) => x || i < 2).join(' | ')).join('\n'), placeholder: 'My sample video | https://youtube.com/shorts/… \nAnother video | /assets/videos/clip.mp4 | /assets/videos/clip.jpg' });
+  const cta = h('input', { type: 'text', value: s.cta || '', placeholder: 'e.g. Promote Your Business', maxlength: 60 });
+  const sort = h('input', { type: 'number', value: s.sort ?? 0 });
+  const home = checkbox('Show on the homepage (first 4 by sort order)', Number(s.show_on_home) === 1);
+  const published = checkbox('Published (visible on the website)', Number(s.published) === 1);
+  const section = (t) => h('h3', { class: 'form-section' }, t);
+
+  const el = h('div', null,
+    section('Service card'),
+    h('div', { class: 'grid-2' }, field('Service name', name), field('Slug', slug, 'Page address: /services/slug')),
+    field('Short description', summary, 'Shown on the service card.'),
+    h('div', { class: 'grid-2' }, field('Sticker', sticker, 'Small tilted label on the card corner.'), field('Card colour', tone)),
+    icon.el,
+    h('div', { class: 'grid-2' }, field('Tags', tags, 'One per line, keep them short.'), field('Card button text', cardCta, 'Defaults to “Learn more”.')),
+    section('Service page'),
+    field('Headline', tagline, 'The big title at the top of the service page.'),
+    field('Intro paragraph', intro),
+    h('div', { class: 'grid-2' }, field('Illustration', visual), field('Note on illustration', note, 'Handwritten note, optional.')),
+    image.el,
+    h('div', { class: 'grid-2' }, field('What you get', features, 'One per line (up to 15).'), field('Perfect for', idealFor, 'One per line.')),
+    field('More details', content, 'Markdown: ## heading, 1. numbered list, - bullet list, **bold**, [link](https://…).'),
+    field('Sample videos', videos, 'One per line: Title | video link | cover image (optional). YouTube and YouTube Shorts links work. Leave empty to hide the section.'),
+    field('Button text', cta, 'Defaults to “Get <service> for my business”.'),
+    field('Google description', seoDesc, 'Shown in Google and AI search results. Write it in English, around 150 characters. Empty = short description.'),
+    h('div', { class: 'grid-2' }, field('Sort order', sort, 'Lower numbers show first.'), h('div', { class: 'field', style: 'justify-content:end' }, home.el)),
+    published.el);
+
+  return {
+    el,
+    getData: () => ({
+      name: name.value.trim(), slug: slugify(slug.value) || slugify(name.value),
+      summary: summary.value.trim(), seo_description: seoDesc.value.trim(), sticker: sticker.value.trim(), tone: tone.value, icon: icon.value,
+      tags: lines(tags), card_cta: cardCta.value.trim(),
+      tagline: tagline.value.trim(), intro: intro.value.trim(), visual: visual.value, image: image.value, note: note.value.trim(),
+      features: lines(features), ideal_for: lines(idealFor), content: content.value.trim(), videos: lines(videos), cta: cta.value.trim(),
+      sort: Number(sort.value) || 0, show_on_home: home.input.checked ? 1 : 0, published: published.input.checked ? 1 : 0,
+    }),
+    validate: (d) => {
+      if (!d.name) return { message: 'Please enter the service name.', el: name };
+      if (!d.slug) return { message: 'Please enter a slug.', el: slug };
       return null;
     },
   };

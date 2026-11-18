@@ -570,3 +570,8 @@ button.media-item:focus-visible { box-shadow: var(--focus); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Service form: section headings and the Markdown box */
+.form-section { font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 26px 0 12px; padding-top: 18px; border-top: 1px solid var(--border); }
+.form-section:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+textarea.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.6; }

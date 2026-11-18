@@ -6,6 +6,13 @@
 const WHATSAPP_PHONE = (document.querySelector('a[href*="wa.me/"]')?.getAttribute('href').match(/wa\.me\/(\d+)/) || [])[1] || '919547771118';
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Old links like /services#meta-ads now live on their own page: /services/meta-ads.
+(() => {
+  const id = location.hash.slice(1);
+  if (location.pathname.replace(/\/$/, '') === '/services' && /^[a-z0-9-]+$/.test(id)
+    && !document.getElementById(id)) location.replace(`/services/${id}`);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initWhatsAppFloat();

@@ -6,8 +6,10 @@ const PAGES = [['/', '1.0'], ['/services', '0.9'], ['/pricing', '0.9'], ['/work'
 
 export async function onRequestGet({ env }) {
   const posts = env.DB ? await listRows(env, 'posts', { publishedOnly: true }).catch(() => []) : [];
+  const services = env.DB ? await listRows(env, 'services', { publishedOnly: true }).catch(() => []) : [];
   const urls = [
     ...PAGES.map(([p, pr]) => `<url><loc>${SITE}${p}</loc><priority>${pr}</priority></url>`),
+    ...services.map((s) => `<url><loc>${SITE}/services/${s.slug}</loc><lastmod>${String(s.updated_at || '').slice(0, 10)}</lastmod><priority>0.8</priority></url>`),
     ...posts.map((p) => `<url><loc>${SITE}/blog/${p.slug}</loc><lastmod>${(p.updated_at || p.published_at).slice(0, 10)}</lastmod><priority>0.6</priority></url>`),
   ];
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`,

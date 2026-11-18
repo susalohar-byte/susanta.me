@@ -1,6 +1,6 @@
 // Page shell shared by scripts/build.mjs (static pages) and functions/blog/[slug].js.
 // Elements marked data-cms-* are filled with live values from /admin by functions/_middleware.js.
-import { esc } from './templates.js';
+import { esc, markLang } from './templates.js';
 
 export const SITE = 'https://susanta.me';
 export const WA_NUMBER = '919547771118';
@@ -38,11 +38,12 @@ export const BUSINESS = {
 
 const WEBSITE = { '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: 'Sushanta Digital', inLanguage: 'en-IN', publisher: { '@id': `${SITE}/#business` } };
 
-export function head({ path, canonical, title, description, crumb, schema = [], ogType = 'website', image = '/assets/images/og-cover.jpg', robots = 'index, follow, max-image-preview:large', preload }) {
+export function head({ path, canonical, title, description, crumb, schema = [], ogType = 'website', image = '/assets/images/og-cover.jpg', robots = 'index, follow, max-image-preview:large', preload, dateModified }) {
   const url = SITE + (canonical || path);
   const graph = [BUSINESS, WEBSITE, {
     '@type': 'WebPage', '@id': `${url}#webpage`, url, name: title, description,
     isPartOf: { '@id': `${SITE}/#website` }, about: { '@id': `${SITE}/#business` }, inLanguage: 'en-IN',
+    ...(dateModified ? { dateModified } : {}),
   }];
   if (crumb) {
     graph.push({ '@type': 'BreadcrumbList', itemListElement: [
@@ -89,6 +90,7 @@ export function head({ path, canonical, title, description, crumb, schema = [], 
   <script type="application/ld+json">
 ${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 1).replace(/</g, '\\u003c')}
   </script>
+  <script type="application/ld+json" data-cms-sameas></script>
 </head>
 <body class="page-${esc(path.split('/')[1] || 'home')}">
 `;
@@ -148,7 +150,7 @@ export const CONTACT = `
           <div class="contact-wrap__copy reveal">
             <span class="eyebrow eyebrow--light">Free consultation</span>
             <h2>Let's discuss<br>your project. <span class="stk stk--lime stk--inline">⚡ Replies in 15 min</span></h2>
-            <p>আপনার ব্যবসার কথা একটু বলুন। কীভাবে সবচেয়ে তাড়াতাড়ি বেশি কাস্টমার পাবেন, আমি নিজে বলে দেব।</p>
+            <p>Tell me a little about your business. I’ll personally show you the fastest way to get more customers.</p>
             <ol class="next-steps">
               <li>I review your business, website and Google presence.</li>
               <li>You get a free, simple growth plan on WhatsApp.</li>
@@ -226,5 +228,5 @@ export const TAIL = `
 `;
 
 export function page({ path, head: h, body, contact = true, modal = false }) {
-  return head({ path, ...h }) + header(path) + `\n  <main id="main">\n  <div id="top"></div>\n${body}${contact ? CONTACT : ''}  </main>\n` + FOOTER + (modal ? MODAL : '') + TAIL;
+  return head({ path, ...h }) + header(path) + `\n  <main id="main">\n  <div id="top"></div>\n${markLang(body + (contact ? CONTACT : ''))}  </main>\n` + FOOTER + (modal ? MODAL : '') + TAIL;
 }
