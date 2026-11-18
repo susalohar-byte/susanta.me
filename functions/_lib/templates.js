@@ -90,36 +90,51 @@ export function projectsHtml(items, variant = 'home') {
     }).join('');
   }
   if (variant === 'bento') {
+    // Homepage "Recent work": one featured project, then up to two more and a call-to-action card.
     const host = (p) => { try { return new URL(p.url).host.replace(/^www\./, ''); } catch { return p.title; } };
-    const cards = items.slice(0, 3).map((p, n) => {
-      const feat = n === 0;
-      const metrics = feat ? parseMetrics(p.metrics).slice(0, 3)
-        .map((m) => `<div><strong>${esc(m.value)}</strong><span>${esc(m.label)}</span></div>`).join('') : '';
-      return `
-          <article class="cb-card${feat ? ' cb-card--feat' : ''} reveal">
-            <button type="button" class="cb-card__stage tint-${n % 4}"${projectData(p)} aria-label="Preview ${esc(p.title)} website">
-              <span class="cb-browser">
-                <span class="cb-browser__bar"><i></i><i></i><i></i><span class="cb-browser__url">${esc(host(p))}</span></span>
-                <img src="${esc(p.image)}" alt="${esc(p.title)} website" width="1200" height="738" loading="lazy">
-              </span>
-              <span class="cb-card__go" aria-hidden="true">&nearr;</span>
+    const shot = (p) => `<span class="rw-shot"><span class="rw-shot__bar"><i></i><i></i><i></i><span>${esc(host(p))}</span></span><img src="${esc(p.image)}" alt="${esc(p.title)} website" width="1200" height="738" loading="lazy"></span>`;
+    const links = (p, big) => `
+              <div class="rw-links">
+                <a href="/work#case-${esc(p.slug)}"${big ? ' class="btn btn--dark btn--sm"' : ''}>${big ? 'Read the case study' : 'Case study'} <span class="arr">&rarr;</span></a>
+                ${p.url ? `<a href="${esc(p.url)}" class="rw-live" target="_blank" rel="noopener noreferrer">${big ? 'Visit live site' : 'Live site'} &nearr;</a>` : ''}
+              </div>`;
+    const [f, ...rest] = items;
+    const metrics = parseMetrics(f.metrics).slice(0, 3).map((m) => `<div><dt>${esc(m.value)}</dt><dd>${esc(m.label)}</dd></div>`).join('');
+    const feat = `
+          <article class="rw-feat reveal">
+            <button type="button" class="rw-feat__media"${projectData(f)} aria-label="Preview ${esc(f.title)} website">
+              ${shot(f)}
+              <span class="rw-zoom" aria-hidden="true">Tap to preview</span>
             </button>
-            <div class="cb-card__info">
-              <div class="cb-card__top">
-                <span class="cb-card__cat">${esc(p.category_label)}</span>
-                ${p.highlight ? `<span class="cb-card__chip">${esc(p.highlight)}</span>` : ''}
-              </div>
-              <h3>${esc(p.title)}</h3>
-              ${feat && p.solution ? `<p>${esc(p.solution)}</p>` : ''}
-              ${metrics ? `<div class="cb-card__metrics">${metrics}</div>` : ''}
-              <div class="cb-card__links">
-                <a href="/work#case-${esc(p.slug)}">Case study &rarr;</a>
-                ${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Live site &nearr;</a>` : ''}
-              </div>
+            <div class="rw-feat__body">
+              <div class="rw-tags"><span class="rw-num">01</span><span class="rw-cat">${esc(f.category_label)}</span>${f.highlight ? `<span class="rw-chip">${esc(f.highlight)}</span>` : ''}</div>
+              <h3>${esc(f.title)}</h3>
+              ${f.solution ? `<p>${esc(f.solution)}</p>` : ''}
+              ${metrics ? `<dl class="rw-metrics">${metrics}</dl>` : ''}
+              ${links(f, true)}
             </div>
           </article>`;
-    }).join('');
-    return `<div class="cb">${cards}</div>`;
+    const cards = rest.slice(0, 2).map((p, i) => `
+          <article class="rw-card reveal">
+            <button type="button" class="rw-card__media"${projectData(p)} aria-label="Preview ${esc(p.title)} website">${shot(p)}</button>
+            <div class="rw-card__body">
+              <div class="rw-tags"><span class="rw-num">${String(i + 2).padStart(2, '0')}</span><span class="rw-cat">${esc(p.category_label)}</span></div>
+              <h3>${esc(p.title)}</h3>
+              ${p.solution || p.highlight ? `<p>${esc(p.solution || p.highlight)}</p>` : ''}
+              ${links(p, false)}
+            </div>
+          </article>`).join('');
+    const cta = `
+          <a href="#contact" class="rw-cta reveal" data-service="A website or system like these">
+            <span class="rw-cta__eyebrow">Your turn</span>
+            <strong>Your business could be next.</strong>
+            <span class="rw-cta__text">Tell me what you sell. I’ll show you what we can build — free 15-minute chat.</span>
+            <span class="rw-cta__btn">Start your project <span class="arr">&rarr;</span></span>
+          </a>`;
+    return `<div class="rw">${feat}
+          <div class="rw-row rw-row--${rest.slice(0, 2).length}">${cards}${cta}
+          </div>
+        </div>`;
   }
   return items.map((p, n) => `
         <article class="proj reveal" data-category="${esc(p.category)}">
