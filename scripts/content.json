@@ -574,7 +574,7 @@
       ],
       "content": "## How it works\n\n1. **A short call** to understand your business and customers.\n2. **Design and content** — we write the copy and design every page for mobile first.\n3. **Build and launch** — fast, secure and connected to WhatsApp, Google Maps and your forms.\n4. **Ongoing support** — price changes, new photos and offers, just send them on WhatsApp.",
       "cta": "Get a website for my business",
-      "show_on_home": 1,
+      "show_on_home": 0,
       "sort": 4,
       "published": 1,
       "seo_description": "Fast, mobile-first websites for local businesses that load in under 1.5 seconds and turn visitors into calls and WhatsApp enquiries."
@@ -658,7 +658,7 @@
         }
       ],
       "cta": "Get my AI video",
-      "show_on_home": 0,
+      "show_on_home": 1,
       "sort": 6,
       "published": 1,
       "seo_description": "Affordable AI video production for local businesses in Purulia and West Bengal: Reels, ads and explainer videos with script, AI voiceover, captions and music. From ₹800 per video."

@@ -98,7 +98,7 @@ function home() {
         </div>
         ${list('services', servicesHtml(published(C.services), 'home'), 'home', 'svc4__grid')}
       </div>
-      <div class="container"><p class="svc4__extra reveal">Also: <a href="/services/meta-ads">Meta Ads</a> · <a href="/services#seo">Local SEO &amp; Google Maps</a> · <a href="/services#speed">Speed Optimization</a> · <a href="/services#support">Ongoing Support</a></p></div>
+      <div class="container"><p class="svc4__extra reveal">Also: <a href="/services/web-dev">Websites &amp; Apps</a> · <a href="/services/meta-ads">Meta Ads</a> · <a href="/services#seo">Local SEO &amp; Google Maps</a> · <a href="/services#speed">Speed Optimization</a> · <a href="/services#support">Ongoing Support</a></p></div>
     </section>
 
     <section class="section section--flush-top"><div class="container">${stats()}</div></section>
