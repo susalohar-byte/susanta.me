@@ -1138,3 +1138,31 @@ a.channel:hover { background: rgba(163, 230, 53, 0.1); border-color: rgba(163, 2
   .rw-cta__text { font-size: 14.5px; }
   .rw-cta__btn { margin-top: 4px; }
 }
+
+/* ---------- Mobile polish (phones 320–720px) ---------- */
+@media (max-width: 720px) {
+  .ph__title { font-size: clamp(32px, 10vw, 44px); max-width: none; }
+  .ph-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .ph-stats div strong { font-size: 30px; }
+  .ph-stats div span { font-size: 12.5px; line-height: 1.3; display: block; margin-top: 4px; }
+  .float[style*="left: -"] { left: 8px !important; }
+  .float[style*="right: -"] { right: 8px !important; }
+  .post__meta { flex-wrap: wrap; row-gap: 6px; }
+  .post__cat { white-space: nowrap; letter-spacing: 0.05em; }
+  .art-more__cat { font-size: 12px; }
+  .funnel-bar { min-width: max-content; }
+  .svc-page > * { min-width: 0; }
+  .ad-meta { flex-wrap: wrap; }
+  .rw-metrics dd, .rw-card .rw-cat { font-size: 12px; }
+  .rw-card .rw-cat { letter-spacing: 0.06em; }
+  .rw-links a:not(.btn), .rw-card .rw-links a { padding-block: 10px; }
+  .rw-card .rw-links { padding-top: 0; }
+}
+@media (max-width: 360px) {
+  .container { padding: 0 14px; }
+  .rw-card { grid-template-columns: 96px 1fr; }
+  .h-section { font-size: 28px; }
+  .btn { padding-left: 18px; padding-right: 18px; }
+  .steps, .posts--row, .price-strip { margin: 0 -14px; padding-left: 14px; padding-right: 14px; }
+  .ph-tabs { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
+}
