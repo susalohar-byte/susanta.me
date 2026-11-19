@@ -13,7 +13,7 @@ export const waIcon = (size = 20, fill = 'currentColor') =>
 export const waLink = (text) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
 
 export const NAV = [
-  ['/', 'Home'], ['/services', 'Services'], ['/work', 'Work'], ['/pricing', 'Pricing'], ['/about', 'About'], ['/blog', 'Blog'],
+  ['/', 'Home'], ['/services', 'Services'], ['/work', 'Work'], ['/pricing', 'Pricing'], ['/blog', 'Blog'],
 ];
 
 export const BUSINESS = {
@@ -203,7 +203,7 @@ export const FOOTER = `
       </div>
       <div class="footer__bottom">
         <span>&copy; 2026 Sushanta Digital · 📍 <span data-cms-text="location">Manbazar, Purulia, West Bengal</span></span>
-        <nav class="footer__legal" aria-label="Legal"><a href="/privacy-policy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a></nav>
+        <nav class="footer__legal" aria-label="Footer links"><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a></nav>
         <a href="#top" class="footer__up" aria-label="Back to top">&uarr;</a>
       </div>
     </div>

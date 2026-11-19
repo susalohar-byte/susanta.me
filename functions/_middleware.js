@@ -1,6 +1,6 @@
 // Fills static pages with live content from /admin (D1) before they reach the visitor.
 import { getSettings, listRows } from './_lib/db.js';
-import { titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, servicesHtml, faqSchemaJson, markLang, isBengali } from './_lib/templates.js';
+import { titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, servicesHtml, homeVideosHtml, faqSchemaJson, markLang, isBengali } from './_lib/templates.js';
 import { SITE } from './_lib/layout.js';
 
 const SAFE_URL = /^(\/(?!\/)|https:\/\/)[^\s"'<>]*$/;
@@ -134,6 +134,9 @@ export async function onRequest({ request, env, next }) {
         } else if (kind === 'services') {
           const rows = await list('services');
           if (rows) html = servicesHtml(rows, variant);
+        } else if (kind === 'videos') {
+          const rows = await list('services');
+          if (rows) html = homeVideosHtml((rows.find((s) => s.slug === (variant || 'ai-video')) || {}).videos);
         } else if (kind === 'faqs') {
           const rows = await list('faqs');
           if (rows) html = faqsHtml(rows, variant);

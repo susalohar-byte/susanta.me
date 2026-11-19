@@ -362,6 +362,17 @@ export function serviceVideosHtml(videos) {
   }).join('');
 }
 
+// Homepage AI video showcase: the AI video service's sample videos, then a card inviting an order.
+export function homeVideosHtml(videos) {
+  return `${serviceVideosHtml(videos)}
+          <a href="/services/ai-video" class="hv-cta reveal">
+            <span class="hv-cta__play" aria-hidden="true"></span>
+            <strong>Your video could be here.</strong>
+            <span>Reels, ads and explainers for your business — from ₹800, ready in 1–2 days.</span>
+            <span class="hv-cta__link">Order an AI video <span class="arr">&rarr;</span></span>
+          </a>`;
+}
+
 function serviceIcon(s) {
   if (s.icon) return `<img src="${esc(s.icon)}" alt="" width="30" height="30">`;
   if (/whatsapp/i.test(`${s.slug} ${s.name}`)) {

@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { page, head, header, form, TAIL, waIcon, waLink, SITE } from '../functions/_lib/layout.js';
-import { esc, slugify, titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, faqSchemaJson, servicesHtml } from '../functions/_lib/templates.js';
+import { esc, slugify, titleHtml, projectsHtml, reviewsHtml, postsHtml, plansHtml, faqsHtml, faqSchemaJson, servicesHtml, homeVideosHtml } from '../functions/_lib/templates.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const C = JSON.parse(readFileSync(join(root, 'scripts/content.json'), 'utf8'));
@@ -124,6 +124,26 @@ function home() {
     <section class="section" id="work">
       <div class="container">${secHead({ eyebrow: 'Recent work', title: `Real businesses. ${mark('Real results.')}`, lead: 'From education platforms to AI tools — a few real projects I’ve built. See for yourself.', extra: '<a href="/work" class="btn btn--ghost btn--sm">All case studies <span class="arr">&rarr;</span></a>' })}
         ${list('projects', projectsHtml(published(C.projects), 'bento'), 'bento')}
+      </div>
+    </section>
+
+    <section class="section section--soft hv-section" id="ai-videos">
+      <div class="container hv">
+        <div class="hv__intro reveal">
+          <span class="eyebrow">AI video production</span>
+          <h2 class="h-section">Videos that ${mark('stop the scroll.')}</h2>
+          <p class="lead">Reels, ads and explainers made with AI — script, voiceover, captions and music included. Here’s real work. Tap play.</p>
+          <ul class="hv__prices" aria-label="AI video prices">
+            <li><span>Under 1 min</span><b>₹800</b></li>
+            <li><span>1 minute</span><b>₹1,599</b></li>
+            <li><span>5 minutes</span><b>₹10,000</b></li>
+          </ul>
+          <div class="hv__ctas">
+            <a href="/services/ai-video" class="btn btn--dark">See AI video details <span class="arr">&rarr;</span></a>
+            <a href="${waLink('Hi Sushanta! I want an AI video for my business.')}" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">${waIcon(18)} Order on WhatsApp</a>
+          </div>
+        </div>
+        ${list('videos', homeVideosHtml((C.services.find((s) => s.slug === 'ai-video') || {}).videos), 'ai-video', 'hv-rail')}
       </div>
     </section>
 

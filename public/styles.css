@@ -1139,6 +1139,47 @@ a.channel:hover { background: rgba(163, 230, 53, 0.1); border-color: rgba(163, 2
   .rw-cta__btn { margin-top: 4px; }
 }
 
+/* ---------- Homepage AI video showcase ---------- */
+.hv { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr); gap: 56px; align-items: center; }
+.hv__intro { display: flex; flex-direction: column; gap: 18px; }
+.hv__intro .lead { margin: 0; }
+.hv__prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+.hv__prices li { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--border); }
+.hv__prices span { font-size: 12.5px; font-weight: 700; color: var(--muted-foreground); }
+.hv__prices b { font-family: var(--font-display); font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--card-foreground); }
+.hv__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+.hv-rail { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 2px 18px; scrollbar-width: thin; }
+.hv-rail > * { flex: 0 0 250px; scroll-snap-align: start; }
+.hv-rail .vid-card { max-width: none; }
+.hv-rail .vid-card--wide { flex-basis: 440px; }
+.hv-cta { display: flex; flex-direction: column; justify-content: center; gap: 12px; aspect-ratio: 9 / 16; align-self: start; padding: 26px 22px; border-radius: 20px; border: 2px dashed rgba(63, 98, 18, 0.35); background: var(--accent); color: var(--card-foreground); text-decoration: none; transition: transform 0.4s cubic-bezier(.2,.8,.2,1), border-color 0.3s ease; }
+.hv-cta:hover { transform: translateY(-4px); border-color: var(--primary-dark); }
+.hv-cta__play { position: relative; width: 52px; height: 52px; border-radius: 50%; background: var(--primary); }
+.hv-cta__play::after { content: ''; position: absolute; top: 50%; left: 50%; margin: -9px 0 0 -5px; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent var(--primary-foreground); }
+.hv-cta strong { font-family: var(--font-display); font-size: 22px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; }
+.hv-cta > span:not([class]) { font-size: 14px; line-height: 1.55; color: var(--muted-foreground); }
+.hv-cta__link { font-weight: 800; font-size: 14.5px; color: var(--primary-dark); }
+
+@media (max-width: 1080px) {
+  .hv { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 720px) {
+  .hv__prices { gap: 6px; }
+  .hv__prices li { padding: 11px 10px; border-radius: 14px; }
+  .hv__prices span { font-size: 12px; }
+  .hv__prices b { font-size: 18px; }
+  .hv__ctas .btn { flex: 1 1 auto; }
+  .hv-rail { gap: 12px; margin: 0 -18px; padding: 4px 18px 14px; scroll-padding-inline: 18px; scrollbar-width: none; }
+  .hv-rail::-webkit-scrollbar { display: none; }
+  .hv-rail > * { flex-basis: 68%; }
+  .hv-rail .vid-card--wide { flex-basis: 88%; }
+  .hv-cta { padding: 22px 18px; }
+  .hv-cta strong { font-size: 20px; }
+}
+@media (max-width: 360px) {
+  .hv-rail { margin: 0 -14px; padding-left: 14px; padding-right: 14px; scroll-padding-inline: 14px; }
+}
+
 /* ---------- Mobile polish (phones 320–720px) ---------- */
 @media (max-width: 720px) {
   .ph__title { font-size: clamp(32px, 10vw, 44px); max-width: none; }
