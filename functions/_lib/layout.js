@@ -45,10 +45,10 @@ export const BUSINESS = {
 
 const WEBSITE = { '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: 'Sushanta Digital', inLanguage: 'en-IN', publisher: { '@id': `${SITE}/#business` } };
 
-export function head({ path, canonical, title, description, crumb, schema = [], ogType = 'website', image = '/assets/images/og-cover.jpg', robots = 'index, follow, max-image-preview:large', preload, dateModified }) {
+export function head({ path, canonical, title, description, crumb, schema = [], ogType = 'website', image = '/assets/images/og-cover.jpg', robots = 'index, follow, max-image-preview:large', preload, dateModified, pageType = 'WebPage' }) {
   const url = SITE + (canonical || path);
   const graph = [BUSINESS, WEBSITE, {
-    '@type': 'WebPage', '@id': `${url}#webpage`, url, name: title, description,
+    '@type': pageType, '@id': `${url}#webpage`, url, name: title, description,
     isPartOf: { '@id': `${SITE}/#website` }, about: { '@id': `${SITE}/#business` }, inLanguage: 'en-IN',
     ...(dateModified ? { dateModified } : {}),
   }];
@@ -91,7 +91,7 @@ export function head({ path, canonical, title, description, crumb, schema = [], 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">${preload ? `\n  <link rel="preload" as="image" href="${preload}" data-cms-preload>` : ''}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">${preload ? `\n  <link rel="preload" as="image" href="${preload}" data-cms-preload>` : ''}
   <link rel="stylesheet" href="/styles.css">
   <script>document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
@@ -156,7 +156,7 @@ export const CONTACT = `
         <div class="contact-wrap">
           <div class="contact-wrap__copy reveal">
             <span class="eyebrow eyebrow--light">Free consultation</span>
-            <h2>Let's discuss<br>your project. <span class="stk stk--lime stk--inline">⚡ Replies in 15 min</span></h2>
+            <h2>Let's discuss <br>your project. <span class="stk stk--lime stk--inline">⚡ Replies in 15 min</span></h2>
             <p>Tell me a little about your business. I’ll personally show you the fastest way to get more customers.</p>
             <ol class="next-steps">
               <li>I review your business, website and Google presence.</li>
@@ -203,7 +203,7 @@ export const FOOTER = `
       </div>
       <div class="footer__bottom">
         <span>&copy; 2026 Sushanta Digital · 📍 <span data-cms-text="location">Manbazar, Purulia, West Bengal</span></span>
-        <nav class="footer__legal" aria-label="Footer links"><a href="/about">About</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a></nav>
+        <nav class="footer__legal" aria-label="Footer links"><a href="/about">About</a><a href="/digital-marketing-purulia">Digital marketing in Purulia</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a></nav>
         <a href="#top" class="footer__up" aria-label="Back to top">&uarr;</a>
       </div>
     </div>

@@ -1,0 +1,8 @@
+-- SEO: Google descriptions for service pages, and the sample video's length (for VideoObject duration).
+UPDATE services SET seo_description = 'Get daily enquiries for your Purulia business: one-offer landing page, local ads and WhatsApp follow-up, with every lead saved to Google Sheets. Free plan.' WHERE slug = 'lead-generation';
+UPDATE services SET seo_description = 'WhatsApp Business automation for Purulia & West Bengal businesses: 24/7 auto-replies, menus, slot bookings and follow-ups so no enquiry is missed.' WHERE slug = 'whatsapp';
+UPDATE services SET seo_description = 'Offers, posters, social media and local influencer campaigns that bring more walk-ins to shops, salons and clinics in Manbazar, Purulia and nearby towns.' WHERE slug = 'local-business-promotion';
+UPDATE services SET seo_description = 'Fast, mobile-first websites for Purulia businesses, built to load under 1.5s and turn visitors into calls and WhatsApp enquiries. Live in 7 days.' WHERE slug = 'web-dev';
+UPDATE services SET seo_description = 'Meta ads for Purulia businesses, targeted 5–15 km around your shop, with creatives, Pixel tracking and weekly optimisation. Budgets from ₹200/day.' WHERE slug = 'meta-ads';
+UPDATE services SET seo_description = 'AI Reels, ads and explainer videos with script, Bengali/Hindi/English voiceover, captions and music. From ₹800, ready in 1–2 days. Order on WhatsApp.' WHERE slug = 'ai-video';
+UPDATE services SET videos = REPLACE(videos, '"poster":"/assets/videos/nokia-kaise-haar-gaya.jpg"}', '"poster":"/assets/videos/nokia-kaise-haar-gaya.jpg","duration":"1:08"}') WHERE slug = 'ai-video' AND videos NOT LIKE '%"duration"%';

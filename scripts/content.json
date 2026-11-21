@@ -466,7 +466,7 @@
       "show_on_home": 1,
       "sort": 1,
       "published": 1,
-      "seo_description": "Lead generation for local businesses in Purulia and West Bengal: landing pages, offers and ads that bring real enquiries every day, with every lead tracked."
+      "seo_description": "Get daily enquiries for your Purulia business: one-offer landing page, local ads and WhatsApp follow-up, with every lead saved to Google Sheets. Free plan."
     },
     {
       "slug": "whatsapp",
@@ -502,7 +502,7 @@
       "show_on_home": 1,
       "sort": 2,
       "published": 1,
-      "seo_description": "WhatsApp Business automation for local businesses: 24/7 auto-replies, menus, bookings and follow-ups so no customer enquiry is missed."
+      "seo_description": "WhatsApp Business automation for Purulia & West Bengal businesses: 24/7 auto-replies, menus, slot bookings and follow-ups so no enquiry is missed."
     },
     {
       "slug": "local-business-promotion",
@@ -541,7 +541,7 @@
       "show_on_home": 1,
       "sort": 3,
       "published": 1,
-      "seo_description": "Local business promotion in Purulia and West Bengal: offers, posters, social media creatives and local influencer collaborations that bring more walk-ins and enquiries."
+      "seo_description": "Offers, posters, social media and local influencer campaigns that bring more walk-ins to shops, salons and clinics in Manbazar, Purulia and nearby towns."
     },
     {
       "slug": "web-dev",
@@ -577,7 +577,7 @@
       "show_on_home": 0,
       "sort": 4,
       "published": 1,
-      "seo_description": "Fast, mobile-first websites for local businesses that load in under 1.5 seconds and turn visitors into calls and WhatsApp enquiries."
+      "seo_description": "Fast, mobile-first websites for Purulia businesses, built to load under 1.5s and turn visitors into calls and WhatsApp enquiries. Live in 7 days."
     },
     {
       "slug": "meta-ads",
@@ -613,7 +613,7 @@
       "show_on_home": 0,
       "sort": 5,
       "published": 1,
-      "seo_description": "Facebook and Instagram ads for local businesses in Purulia and West Bengal, targeted to customers within 5–15 km, with creatives, tracking and weekly optimisation."
+      "seo_description": "Meta ads for Purulia businesses, targeted 5–15 km around your shop, with creatives, Pixel tracking and weekly optimisation. Budgets from ₹200/day."
     },
     {
       "slug": "ai-video",
@@ -654,14 +654,15 @@
         {
           "title": "Nokia kaise haar gaya? — 1-min Hindi explainer Reel",
           "url": "/assets/videos/nokia-kaise-haar-gaya.mp4",
-          "poster": "/assets/videos/nokia-kaise-haar-gaya.jpg"
+          "poster": "/assets/videos/nokia-kaise-haar-gaya.jpg",
+          "duration": "1:08"
         }
       ],
       "cta": "Get my AI video",
       "show_on_home": 1,
       "sort": 6,
       "published": 1,
-      "seo_description": "Affordable AI video production for local businesses in Purulia and West Bengal: Reels, ads and explainer videos with script, AI voiceover, captions and music. From ₹800 per video."
+      "seo_description": "AI Reels, ads and explainer videos with script, Bengali/Hindi/English voiceover, captions and music. From ₹800, ready in 1–2 days. Order on WhatsApp."
     }
   ]
 }

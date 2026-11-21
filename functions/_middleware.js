@@ -5,8 +5,34 @@ import { SITE } from './_lib/layout.js';
 
 const SAFE_URL = /^(\/(?!\/)|https:\/\/)[^\s"'<>]*$/;
 
-export async function onRequest({ request, env, next }) {
-  const url = new URL(request.url);
+// Security headers on every response, and sensible caching for static files.
+const SECURITY_HEADERS = {
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+};
+function finish(response, path) {
+  const res = new Response(response.body, response);
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.headers.set(k, v);
+  const type = res.headers.get('content-type') || '';
+  if (res.ok && path.startsWith('/assets/')) res.headers.set('Cache-Control', 'public, max-age=604800, stale-while-revalidate=86400');
+  else if (res.ok && /^\/(styles\.css|script\.js|site\.webmanifest)$/.test(path)) res.headers.set('Cache-Control', 'public, max-age=600, stale-while-revalidate=86400');
+  if (type.includes('text/html')) res.headers.delete('Access-Control-Allow-Origin');
+  return res;
+}
+
+export async function onRequest(context) {
+  const url = new URL(context.request.url);
+  // One URL per page: /services/x/ and /services/x.html (same for blog) redirect to /services/x.
+  const dup = url.pathname.match(/^\/(services|blog)\/([a-z0-9-]+)(?:\/|\.html)$/);
+  if (dup) return Response.redirect(`${url.origin}/${dup[1]}/${dup[2]}${url.search}`, 301);
+  if (url.pathname === '/favicon.ico') return Response.redirect(`${url.origin}/assets/images/apple-touch-icon.png`, 301);
+  return finish(await handle(context, url), url.pathname);
+}
+
+async function handle({ request, env, next }, url) {
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin') || url.pathname.startsWith('/media/')) return next();
 
   const response = await next();

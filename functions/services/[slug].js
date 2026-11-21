@@ -12,7 +12,7 @@ export async function onRequestGet({ params, env, next }) {
 
   const all = await listRows(env, 'services', { publishedOnly: true });
   const n = String(all.findIndex((s) => s.slug === slug) + 1).padStart(2, '0');
-  const others = all.map((s, i) => ({ ...s, _n: i + 1 })).filter((s) => s.slug !== slug).slice(0, 4);
+  const others = all.map((s, i) => ({ ...s, _n: i + 1 })).filter((s) => s.slug !== slug).slice(0, 5);
   const path = `/services/${slug}`;
   const cta = svc.cta || `Get ${svc.name} for my business`;
   const lead = svc.summary || svc.tagline || svc.name;
@@ -22,8 +22,11 @@ export async function onRequestGet({ params, env, next }) {
   const videos = serviceVideosHtml(svc.videos);
   const abs = (u) => (/^https?:\/\//i.test(u) ? u : SITE + u);
   const videoSchema = (Array.isArray(svc.videos) ? svc.videos : []).filter((v) => v.url && v.poster && !/youtu/i.test(v.url)).map((v) => ({
-    '@type': 'VideoObject', name: v.title || `${svc.name} sample`, description: `${v.title || 'Sample video'} — made by Sushanta Digital (${svc.name}).`,
+    '@type': 'VideoObject', '@id': `${abs(v.url)}#video`, name: v.title || `${svc.name} sample`,
+    description: `${v.title || 'Sample video'}. A sample AI video made by Sushanta Digital, Manbazar, Purulia.`,
     thumbnailUrl: abs(v.poster), contentUrl: abs(v.url), uploadDate: updated || undefined,
+    ...(v.duration ? { duration: `PT${Number(v.duration.split(':')[0])}M${Number(v.duration.split(':')[1])}S` } : {}),
+    publisher: { '@id': `${SITE}/#business` },
   }));
   const list = (title, items) => (items.length ? `<div><h3>${esc(title)}</h3><ul class="ticks">${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : '');
   const schema = [{
@@ -37,8 +40,9 @@ export async function onRequestGet({ params, env, next }) {
     <section class="ph ph--navy on-dark svc-page__hero">
       <div class="container">
         <a href="/services" class="svc-page__back">&larr; All services</a>
-        <span class="eyebrow eyebrow--light">${n} — ${esc(svc.name)}</span>
-        <h1 class="ph__title svc-page__title">${esc(svc.tagline || svc.name)}</h1>
+        <span class="eyebrow eyebrow--light">Service ${n}</span>
+        <h1 class="ph__title svc-page__title">${esc(svc.name)} <span class="svc-page__where">in Purulia &amp; West Bengal</span></h1>
+        ${svc.tagline ? `<p class="svc-page__tagline">${esc(svc.tagline)}</p>` : ''}
         ${svc.intro ? `<p class="ph__lead">${esc(svc.intro)}</p>` : ''}
         <div class="ph__ctas">
           <a href="#contact" class="btn btn--primary" data-service="${esc(svc.name)}">${esc(cta)} <span class="arr">&rarr;</span></a>
@@ -79,7 +83,7 @@ ${videos ? `
 `;
   const html = page({
     path: '/services',
-    head: { canonical: path, title: `${svc.name} | Sushanta Digital`, description: description.slice(0, 300), dateModified: updated || undefined, crumb: [['Services', '/services'], [svc.name, path]], schema, image: svc.image || undefined },
+    head: { canonical: path, title: `${svc.name} in Purulia | Sushanta Digital`, description: description.slice(0, 300), dateModified: updated || undefined, crumb: [['Services', '/services'], [svc.name, path]], schema, image: svc.image || undefined },
     body,
   });
   return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8' } });

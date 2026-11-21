@@ -16,7 +16,7 @@ export async function onRequestGet({ params, env, next }) {
   const schema = [{
     '@type': 'BlogPosting', headline: post.title, description: post.excerpt, url: SITE + path,
     image: cover.startsWith('/') ? SITE + cover : cover, datePublished: post.published_at, dateModified: (post.updated_at || '').slice(0, 10) || post.published_at,
-    author: { '@id': `${SITE}/#sushanta` }, publisher: { '@id': `${SITE}/#business` }, mainEntityOfPage: SITE + path, inLanguage: 'en-IN',
+    author: { '@type': 'Person', '@id': `${SITE}/#sushanta`, name: 'Sushanta Lohar', url: `${SITE}/about` }, publisher: { '@id': `${SITE}/#business` }, mainEntityOfPage: { '@id': `${SITE}${path}#webpage` }, inLanguage: 'en-IN',
   }];
 
   const read = readingTime(post.content);
@@ -32,7 +32,7 @@ export async function onRequestGet({ params, env, next }) {
           ${post.excerpt ? `<p class="art-lead">${esc(post.excerpt)}</p>` : ''}
           <div class="art-meta">
             <div class="art-author">
-              <img src="/assets/images/gen_sushanta_circle.png" alt="" width="40" height="40">
+              <img src="/assets/images/gen_sushanta_avatar.webp" alt="" width="40" height="40">
               <div><b>Sushanta Lohar</b><span>${esc(formatDate(post.published_at))} · ${esc(read)}</span></div>
             </div>
             <div class="art-share">
@@ -46,7 +46,7 @@ export async function onRequestGet({ params, env, next }) {
       <div class="art-wrap">
         <div class="prose art-prose">${markdownToHtml(post.content)}</div>
         <aside class="art-author-card">
-          <img src="/assets/images/gen_sushanta_circle.png" alt="" width="56" height="56" loading="lazy">
+          <img src="/assets/images/gen_sushanta_avatar.webp" alt="" width="56" height="56" loading="lazy">
           <div>
             <b>Written by Sushanta Lohar</b>
             <p>I help local businesses get more customers with websites, WhatsApp automation and Meta ads. Want help with this?</p>

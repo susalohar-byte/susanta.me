@@ -1180,7 +1180,7 @@ function serviceForm(s) {
   const features = h('textarea', { rows: 6, value: list(s.features), placeholder: 'One item per line' });
   const idealFor = h('textarea', { rows: 4, value: list(s.ideal_for), placeholder: 'One item per line' });
   const content = h('textarea', { rows: 12, class: 'mono', value: s.content || '', placeholder: '## How it works\n\n1. **Step one** — …\n2. **Step two** — …' });
-  const videos = h('textarea', { rows: 4, class: 'mono', value: (Array.isArray(s.videos) ? s.videos : []).map((v) => [v.title, v.url, v.poster].filter((x, i) => x || i < 2).join(' | ')).join('\n'), placeholder: 'My sample video | https://youtube.com/shorts/… \nAnother video | /assets/videos/clip.mp4 | /assets/videos/clip.jpg' });
+  const videos = h('textarea', { rows: 4, class: 'mono', value: (Array.isArray(s.videos) ? s.videos : []).map((v) => [v.title, v.url, v.poster || (v.duration ? '' : undefined), v.duration].filter((x, i) => x !== undefined && (x || i < 3)).join(' | ')).join('\n'), placeholder: 'My sample video | https://youtube.com/shorts/… \nAnother video | /assets/videos/clip.mp4 | /assets/videos/clip.jpg' });
   const cta = h('input', { type: 'text', value: s.cta || '', placeholder: 'e.g. Promote Your Business', maxlength: 60 });
   const sort = h('input', { type: 'number', value: s.sort ?? 0 });
   const home = checkbox('Show on the homepage (first 4 by sort order)', Number(s.show_on_home) === 1);
@@ -1201,7 +1201,7 @@ function serviceForm(s) {
     image.el,
     h('div', { class: 'grid-2' }, field('What you get', features, 'One per line (up to 15).'), field('Perfect for', idealFor, 'One per line.')),
     field('More details', content, 'Markdown: ## heading, 1. numbered list, - bullet list, **bold**, [link](https://…).'),
-    field('Sample videos', videos, 'One per line: Title | video link | cover image (optional). YouTube and YouTube Shorts links work. Leave empty to hide the section.'),
+    field('Sample videos', videos, 'One per line: Title | video link | cover image | length like 1:08 (last two optional). YouTube and YouTube Shorts links work. Leave empty to hide the section.'),
     field('Button text', cta, 'Defaults to “Get <service> for my business”.'),
     field('Google description', seoDesc, 'Shown in Google and AI search results. Write it in English, around 150 characters. Empty = short description.'),
     h('div', { class: 'grid-2' }, field('Sort order', sort, 'Lower numbers show first.'), h('div', { class: 'field', style: 'justify-content:end' }, home.el)),

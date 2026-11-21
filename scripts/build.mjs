@@ -114,7 +114,7 @@ function home() {
         </div>
         <div class="portrait reveal-scale">
           <div class="portrait__ring" aria-hidden="true"></div>
-          <img class="portrait__img" src="/assets/images/gen_sushanta_circle.png" alt="Sushanta Lohar, founder of Sushanta Digital" width="336" height="336" loading="lazy">
+          <img class="portrait__img" src="/assets/images/gen_sushanta_circle.webp" alt="Sushanta Lohar, founder of Sushanta Digital" width="336" height="336" loading="lazy">
           <div class="float" style="left: -24px; top: 30px; --r: -5deg;"><span class="chip">Hi, I'm Sushanta :)</span></div>
           <div class="float float--2 hide-sm" style="right: -30px; bottom: 70px;">${toast('Replied in 2 min', '“Sure! Sending your plan now…”')}</div>
         </div>
@@ -195,7 +195,7 @@ function home() {
 `;
   return page({
     path: '/',
-    head: { title: 'Sushanta Digital | Lead Generation & Websites for Local Businesses', description: 'Get more customers with lead generation, WhatsApp automation, Meta ads, AI videos and fast websites for local businesses in Purulia, West Bengal & across India. Plans from ₹6,999. Free consultation.', preload: S.hero_image },
+    head: { title: 'Sushanta Digital | Digital Marketing for Local Businesses', description: 'Lead generation, WhatsApp automation, Meta ads, websites and AI videos for local businesses in Purulia & West Bengal. Plans from ₹6,999. Free consultation.', preload: S.hero_image },
     body, modal: true,
   });
 }
@@ -243,8 +243,8 @@ ${ctaBand('Not sure which service you need?', "Tell me about your business in a 
   return page({
     path: '/services',
     head: {
-      title: 'Services: Lead Generation, WhatsApp Automation & Meta Ads | Sushanta Digital',
-      description: 'Lead generation, WhatsApp automation, Facebook & Instagram ads and fast websites for local businesses in Purulia, West Bengal and across India. Get a free growth plan.',
+      title: 'Digital Marketing Services in Purulia | Sushanta Digital',
+      description: 'Lead generation, WhatsApp automation, Facebook & Instagram ads, websites and AI videos for shops, clinics and coaching centres in Purulia and West Bengal.',
       crumb: [['Services', '/services']],
       schema: [{ '@type': 'OfferCatalog', name: 'Sushanta Digital Services', itemListElement: ['Lead Generation', 'WhatsApp Automation', 'Local Business Promotion', 'Meta Ads Management', 'Website & App Development', 'Local SEO & Google Business Profile', 'Website Maintenance']
         .map((n) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n, provider: { '@id': `${SITE}/#business` }, areaServed: 'IN' } })) }],
@@ -282,7 +282,7 @@ function work() {
 ${ctaBand('Your business could be the next case study.', 'I take on a limited number of projects each month so every client gets my full attention. Grab a slot for a free strategy call.', 'Claim My Free Strategy Call')}`;
   return page({
     path: '/work',
-    head: { title: 'Portfolio & Case Studies: Websites That Bring Customers | Sushanta Digital', description: 'Case studies of websites, WhatsApp automation and Meta ads for coaching centres, clinics, salons and travel agencies in West Bengal — with real enquiry and booking results.', crumb: [['Work', '/work']] },
+    head: { title: 'Portfolio: Web Platforms & Apps by Sushanta Digital', description: 'Live projects built by Sushanta Lohar: PracticeKoro (Bengali mock-test platform), TelePost (AI quiz generator for Telegram) and TR Solutions Academy.', crumb: [['Work', '/work']] },
     body, modal: true,
   });
 }
@@ -441,9 +441,9 @@ ${ctaBand("Let's grow your business together.", "A 15-minute call is all it take
   return page({
     path: '/about',
     head: {
-      title: 'About Sushanta Lohar — Digital Growth Partner in Purulia, West Bengal | Sushanta Digital',
-      description: 'Meet Sushanta Lohar, the Manbazar, Purulia-based digital growth strategist helping local businesses get more customers with websites, WhatsApp automation and Meta ads.',
-      crumb: [['About', '/about']], ogType: 'profile',
+      title: 'About Sushanta Lohar, Digital Marketer in Purulia',
+      description: 'Sushanta Lohar runs Sushanta Digital from Manbazar, Purulia, building websites, WhatsApp automation and Meta ads for local businesses in West Bengal.',
+      crumb: [['About', '/about']], ogType: 'profile', pageType: 'AboutPage',
       schema: [{ '@type': 'Person', '@id': `${SITE}/#sushanta`, name: 'Sushanta Lohar', jobTitle: 'Digital Growth Strategist', worksFor: { '@id': `${SITE}/#business` }, image: `${SITE}/assets/images/gen_sushanta_circle.png`, address: { '@type': 'PostalAddress', addressLocality: 'Manbazar', addressRegion: 'West Bengal', addressCountry: 'IN' } }],
     },
     body,
@@ -543,7 +543,6 @@ ${ctaBand('Want a review like this about your business?', "Start with a free 15-
       title: 'Client Reviews & Testimonials | Sushanta Digital',
       description: 'Read reviews from coaching centres, clinics, salons, travel agencies and shops in West Bengal who grew their enquiries with Sushanta Digital.',
       crumb: [['Reviews', '/reviews']],
-      schema: [{ '@type': 'ItemList', name: 'Client testimonials', itemListElement: reviews.map((r, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Review', reviewBody: r.quote, author: { '@type': 'Person', name: r.name }, reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 }, itemReviewed: { '@id': `${SITE}/#business` } } })) }],
     },
     body,
   });
@@ -659,10 +658,10 @@ ${form({ textarea: true })}
   return page({
     path: '/contact',
     head: {
-      title: 'Contact Sushanta Digital — Free Consultation on WhatsApp',
+      title: 'Contact Sushanta Digital, Manbazar, Purulia',
       description: 'Get a free growth consultation for your local business. Contact Sushanta on WhatsApp at +91 95477 71118 or email contact@susanta.me. Usually replies in 15 minutes.',
       crumb: [['Contact', '/contact']],
-      schema: [{ '@type': 'ContactPage', url: `${SITE}/contact`, about: { '@id': `${SITE}/#business` } }],
+      pageType: 'ContactPage',
     },
     body, contact: false,
   });
@@ -753,7 +752,90 @@ function notFound() {
 ` + TAIL;
 }
 
+/* =========================================================================
+   DIGITAL MARKETING IN PURULIA — location landing page
+   ========================================================================= */
+function purulia() {
+  const areas = ['Purulia town', 'Manbazar', 'Raghunathpur', 'Jhalda', 'Balarampur', 'Adra', 'Hura', 'Barabazar', 'Bankura district'];
+  const prices = [
+    ['Website', 'from ₹6,999', 'One-time. Mobile-first site with WhatsApp button and Google Maps setup.', '/pricing'],
+    ['AI video', 'from ₹800', 'Reels and ads under 1 minute. ₹1,599 for 1 minute, ₹10,000 for 5 minutes.', '/services/ai-video'],
+    ['Growth & Automation', '₹14,999', 'Website plus WhatsApp automation and lead tracking in Google Sheets.', '/pricing'],
+    ['Meta ads', 'from ₹200/day', 'Suggested ad budget, paid to Meta from your own account. Setup fee extra.', '/services/meta-ads'],
+  ];
+  const faqs = [
+    ['Do you work with businesses in Purulia town and nearby towns?', 'Yes. I’m based in Manbazar, Purulia, and work with businesses across Purulia district, Bankura and the rest of West Bengal. Everything runs on WhatsApp, phone calls and screen-sharing, so distance is never a problem.'],
+    ['How much does a website cost for a Purulia business?', 'A one-page Starter website is ₹6,999, the Growth & Automation plan with WhatsApp automation is ₹14,999, and the Full Digital Suite is ₹24,999. All are one-time payments: 50% to start and 50% after you approve the design.'],
+    ['How fast can my business be online?', 'Most projects go live within 5 to 7 working days. A simple Starter website can be ready in 3–4 days, and you get a private preview link to check on your phone before launch.'],
+    ['How much should a local business in Purulia spend on Facebook and Instagram ads?', 'For a shop or clinic targeting people within 5–15 km, ₹200 to ₹400 a day is usually enough to start getting regular enquiries. We start small, measure, then scale what works.'],
+    ['Can you make videos for my business without a shoot?', 'Yes. AI videos need no camera, studio or actors. A Reel under 1 minute costs ₹800 and is usually ready in 1–2 days, with script, voiceover in Bengali, Hindi or English, captions and music.'],
+  ];
+  const body = `
+    <section class="ph ph--navy on-dark">
+      <div class="container">
+        <span class="eyebrow eyebrow--light">Purulia · West Bengal</span>
+        <h1 class="ph__title">Digital Marketing Agency in ${mark('Purulia')}</h1>
+        <p class="ph__lead">Sushanta Digital is based in Manbazar, Purulia. I help shops, clinics, coaching centres and other local businesses in Purulia district get more enquiries with websites, WhatsApp automation, Facebook &amp; Instagram ads and AI videos.</p>
+        <div class="ph__ctas">
+          <a href="${waLink('Hi Sushanta! I have a business in Purulia and want more customers.')}" target="_blank" rel="noopener noreferrer" class="btn btn--primary">${waIcon(18)} Get a free plan on WhatsApp <span class="arr">&rarr;</span></a>
+          <a href="/pricing" class="btn btn--ghost-light">See all prices</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">${secHead({ eyebrow: 'Areas served', title: `Working with businesses ${mark('across Purulia')}`, lead: 'One person handles your project from first chat to launch, in Bengali, Hindi or English.' })}
+        <ul class="area-list reveal">${areas.map((a) => `<li>📍 ${a}</li>`).join('')}</ul>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container">${secHead({ eyebrow: 'Services', title: `Everything you need to ${mark('get found')}`, lead: 'Pick one service or combine them into one simple system.', extra: '<a href="/services" class="btn btn--ghost btn--sm">All services <span class="arr">&rarr;</span></a>' })}
+        ${list('services', servicesHtml(published(C.services)), 'page', 'svc-index')}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">${secHead({ eyebrow: 'Prices', title: `Clear prices for ${mark('local budgets')}`, lead: 'No hidden monthly charges. Monthly services like ad management are optional.' })}
+        <div class="price-cards">
+          ${prices.map(([n, pr, d, href]) => `<a href="${href}" class="price-card reveal"><span>${n}</span><b>${pr}</b><p>${d}</p></a>`).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container">${secHead({ eyebrow: 'Why a local partner', title: `Someone who knows ${mark('your market')}`, center: true })}
+        <div class="cards-3">
+          ${[['🗣️', 'Talk in your language', 'Plan your website, ads and videos in Bengali, Hindi or English — whatever is easiest for you.'], ['⚡', 'Live in about 7 days', 'Design, copy, WhatsApp setup, Google Maps and hosting handled for you. You just send photos and details.'], ['📈', 'Built for enquiries', 'Every page and ad is made to bring calls and WhatsApp messages, and every lead is tracked.']]
+            .map(([e, t, d]) => `<div class="card reveal"><div class="icon-tile">${e}</div><h3>${t}</h3><p>${d}</p></div>`).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">${secHead({ eyebrow: 'FAQ', title: `Questions from ${mark('Purulia businesses')}` })}
+        ${faqsHtml(faqs.map(([question, answer]) => ({ category: 'Common questions', question, answer })))}
+      </div>
+    </section>
+${ctaBand('Ready to get more customers in Purulia?', 'Send a WhatsApp message with your business name. I’ll reply with a free, simple plan — usually within 15 minutes.', 'Get My Free Plan')}`;
+  return page({
+    path: '/digital-marketing-purulia',
+    head: {
+      title: 'Digital Marketing Agency in Purulia | Sushanta Digital',
+      description: 'Websites from ₹6,999, WhatsApp automation, Meta ads and AI videos from ₹800 for shops, clinics and coaching centres in Purulia, Manbazar and Bankura.',
+      crumb: [['Digital marketing in Purulia', '/digital-marketing-purulia']],
+      schema: [
+        { '@type': 'Service', '@id': `${SITE}/digital-marketing-purulia#service`, name: 'Digital marketing in Purulia', serviceType: 'Digital marketing', provider: { '@id': `${SITE}/#business` },
+          areaServed: [{ '@type': 'AdministrativeArea', name: 'Purulia district', sameAs: 'https://en.wikipedia.org/wiki/Purulia_district' }, { '@type': 'AdministrativeArea', name: 'Bankura district', sameAs: 'https://en.wikipedia.org/wiki/Bankura_district' }],
+          offers: [{ '@type': 'Offer', name: 'Starter Website', price: '6999', priceCurrency: 'INR' }, { '@type': 'Offer', name: 'AI video under 1 minute', price: '800', priceCurrency: 'INR' }] },
+        { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+      ],
+    },
+    body,
+  });
+}
+
 const pages = { 'index.html': home(), 'services.html': services(), 'work.html': work(), 'pricing.html': pricing(), 'about.html': about(),
-  'process.html': processPage(), 'reviews.html': reviewsPage(), 'faq.html': faq(), 'blog.html': blog(), 'contact.html': contact(), 'privacy-policy.html': privacy(), 'terms.html': terms(), '404.html': notFound() };
+  'process.html': processPage(), 'reviews.html': reviewsPage(), 'faq.html': faq(), 'blog.html': blog(), 'contact.html': contact(), 'privacy-policy.html': privacy(), 'terms.html': terms(), 'digital-marketing-purulia.html': purulia(), '404.html': notFound() };
 for (const [file, html] of Object.entries(pages)) out(file, html);
 console.log(`Built ${Object.keys(pages).length} pages`);

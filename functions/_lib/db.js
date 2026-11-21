@@ -35,8 +35,9 @@ const str = (v, max = 5000) => String(v ?? '').trim().slice(0, max);
 const lines = (v) => (Array.isArray(v) ? v : String(v ?? '').split('\n'));
 // Sample videos: "Title | video link | cover image" per line, or { title, url, poster } objects.
 const parseVideo = (x) => {
-  const [title = '', url = '', poster = ''] = x && typeof x === 'object' ? [x.title, x.url, x.poster] : String(x ?? '').split('|');
-  return { title: str(title, 120), url: str(url, 500), poster: str(poster, 500) };
+  const [title = '', url = '', poster = '', duration = ''] = x && typeof x === 'object' ? [x.title, x.url, x.poster, x.duration] : String(x ?? '').split('|');
+  const d = str(duration, 8);
+  return { title: str(title, 120), url: str(url, 500), poster: str(poster, 500), ...(/^\d{1,2}:\d{2}$/.test(d) ? { duration: d } : {}) };
 };
 const bool = (v) => (v === true || v === 1 || v === '1' || v === 'true' ? 1 : 0);
 

@@ -255,7 +255,7 @@ export function plansHtml(items, variant = 'cards') {
 const answerHtml = (a) => esc(a).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
 const faqItem = (f, open) => `
             <div class="faq-item${open ? ' active' : ''}">
-              <button class="faq-question-btn" type="button" aria-expanded="${open}">${esc(f.question)}</button>
+              <h3 class="faq-q"><button class="faq-question-btn" type="button" aria-expanded="${open}">${esc(f.question)}</button></h3>
               <div class="faq-answer-pane"><div><p>${answerHtml(f.answer)}</p></div></div>
             </div>`;
 
@@ -317,7 +317,7 @@ export const SERVICE_VISUALS = {
   web: `
               <div class="mock">
                 <div class="browser-dots"><i></i><i></i><i></i></div>
-                <div class="browser-shot"><img src="/assets/portfolio/mockup_coaching.png" alt="Coaching centre website built by Sushanta Digital" width="972" height="598" loading="lazy"></div>
+                <div class="browser-shot"><img src="/assets/portfolio/mockup_coaching.webp" alt="Coaching centre website built by Sushanta Digital" width="972" height="598" loading="lazy"></div>
                 <div class="scores"><div>98<small>Performance</small></div><div>100<small>SEO</small></div><div>&lt;1.5s<small>Load time</small></div></div>
               </div>`,
   promo: `
